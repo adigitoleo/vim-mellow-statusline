@@ -16,17 +16,18 @@
 
 <!-- vim-markdown-toc -->
 
-TODO:
-- Outdated plugin notifier?? wishlist, would want to run async git fetches
-- Some filetype and input hints, (including xkb-switch indicator?)
-- vimtex stuff? maybe on wishlist
-
 
 ## Screenshots
 
 Taken on alacritty with LiberationMono font:
 
-*ADD SCREENSHOTS*
+![normal-mode](./img/normal_mode.png)
+![insert-mode](./img/insert_mode.png)
+![replace-mode](./img/replace_mode.png)
+![visual-mode](./img/visual_mode.png)
+![cmdline-mode](./img/cmdline_mode.png)
+![term-zsh](./img/term_zsh.png)
+
 
 ## Installation
 
@@ -52,9 +53,9 @@ remember to load it first. Additionally, add the following to your config file
 (see `:help vimrc`):
 
 ```vim
-:set termguicolors
-:let g:mellow_user_colors = 1
-:colorscheme mellow
+set termguicolors
+let g:mellow_user_colors = 1
+colorscheme mellow
 ```
 
 Alternatively you can define arbitrary colors for the relevant highlight
