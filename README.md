@@ -26,6 +26,7 @@ Taken on alacritty with LiberationMono font:
 ![replace-mode](./img/replace_mode.png)
 ![visual-mode](./img/visual_mode.png)
 ![cmdline-mode](./img/cmdline_mode.png)
+![term-zsh](./img/term_zsh.png)
 
 
 ## Installation
