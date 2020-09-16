@@ -1,7 +1,7 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Minimal statusline for (neo)vim, best served with the mellow colorscheme.
 " Maintainer: adigitoleo <adigitoleo@protonmail.com>
-" Version: 0.1
+" Version: 0.2
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -56,8 +56,8 @@ function! MellowStatusline(is_active) abort
         let l:statusline .= '%1*%l,%c%V%*'
         " ALE linter status.
         let l:statusline .= '%( %3*%{mellow_statusline#ALE()}%*%)'
+        " Custom diagnostic function.
         if exists('g:MellowDiagnosticFunction')
-            " Custom diagnostic function.
             let l:statusline .= '%( %3*%{g:MellowDiagnosticFunction()}%*%)'
         endif
         " Indentation warnings.
