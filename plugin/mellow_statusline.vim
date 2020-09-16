@@ -56,6 +56,10 @@ function! MellowStatusline(is_active) abort
         let l:statusline .= '%1*%l,%c%V%*'
         " ALE linter status.
         let l:statusline .= '%( %3*%{mellow_statusline#ALE()}%*%)'
+        if exists('g:MellowDiagnosticFunction')
+            " Custom diagnostic function.
+            let l:statusline .= '%( %3*%{g:MellowDiagnosticFunction()}%*%)'
+        endif
         " Indentation warnings.
         let l:statusline .= '%( %3*%{mellow_statusline#CheckIndent()}%*%)'
         " File type (TODO: add input indicator).

@@ -71,6 +71,19 @@ in `plugin/mellow_statusline.vim` (search for that variable).
 The dictionary maps the first letter returned by `mode()` to both a color and a
 text string. See also `:help mode()` and `:help 'statusline'`.
 
+You can add custom information to the statusline via the
+`g:MellowDiagnosticFunction` which should be set to a funcref that returns
+the desired diagnostic string. The color is not yet configurable. For example:
+
+```vim
+function! TestCallback() abort
+    return 'test'
+endfunction
+
+let g:MellowDiagnosticFunction = function('TestCallback')
+```
+
+See also `:help function()`.
 
 ## Miscellaneous
 
