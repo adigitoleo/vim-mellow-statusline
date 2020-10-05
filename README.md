@@ -2,13 +2,12 @@
 
 ### A minimal statusline for (neo)vim, best served with [mellow]
 
-![palette](./img/colorscheme.png)
-
 `Plug 'adigitoleo/vim-mellow-statusline'`
+
 
 <!-- vim-markdown-toc GFM -->
 
-* [Screenshots](#screenshots)
+* [Overview](#overview)
 * [Installation](#installation)
 * [Usage](#usage)
 * [Customization](#customization)
@@ -16,8 +15,7 @@
 
 <!-- vim-markdown-toc -->
 
-
-## Screenshots
+## Overview
 
 Taken on alacritty with LiberationMono font:
 
@@ -31,6 +29,13 @@ Taken on alacritty with LiberationMono font:
 
 **Note: The colors depend on User1..9 highlight groups. These screenshots show
 colors as set by the [mellow] colorscheme (bg=light)**
+
+Features:
+- Mode indicator (no need for `showmode`)
+- Shortened file path, focusing on the file name
+- Distinct color for special file flags and diagnostics (see #usage)
+- Distinct color for git branch indicator (requires [vim-fugitive])
+- Clean statusline for `:terminal` and special buffers
 
 
 ## Installation
@@ -121,3 +126,5 @@ and some minimalist statusline plugins like [moonfly-statusline] and
 [vim-statline]: https://github.com/millermedeiros/vim-statline
 
 [CoC]: https://github.com/neoclide/coc.nvim
+
+[vim-fugitive]: https://github.com/tpope/vim-fugitive
