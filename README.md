@@ -33,7 +33,7 @@ colors as set by the [mellow] colorscheme (bg=light)**
 Features:
 - Mode indicator (no need for `showmode`)
 - Shortened file path, focusing on the file name
-- Distinct color for special file flags and diagnostics (see #usage)
+- Distinct color for special file flags and diagnostics (see [usage](#usage))
 - Distinct color for git branch indicator (requires [vim-fugitive])
 - Clean statusline for `:terminal` and special buffers
 
