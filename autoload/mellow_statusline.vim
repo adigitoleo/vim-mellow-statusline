@@ -43,8 +43,8 @@ endfunction
 function! mellow_statusline#GitBranch() abort
     " Parse git branch name from Fugitive.
     let l:gitbranch = exists("g:loaded_fugitive")?fugitive#statusline():""
-    let l:gitbranch = substitute(l:gitbranch, '[Git(', '', '')
-    let l:gitbranch = substitute(l:gitbranch, ')]', '', '')
+    let l:gitbranch = substitute(l:gitbranch, '[Git(', '[', '')
+    let l:gitbranch = substitute(l:gitbranch, ')]', ']', '')
     return l:gitbranch
 endfunction
 

@@ -25,7 +25,7 @@ let g:mellow_mode_map = get(g:, "mellow_mode_map",
             \{
             \  "n":         ["%5*", s:normal ],
             \  "i":         ["%6*", "insert"],
-            \  "R":         ["%8*", "r-mode"],
+            \  "R":         ["%8*", "replace"],
             \  "v":         ["%7*", "visual"],
             \  "V":         ["%7*", "v-line"],
             \  "\<C-v>":    ["%7*", "v-rect"],
@@ -51,13 +51,13 @@ function! MellowStatusline(is_active) abort
         " Special file flags.
         let l:statusline .= '%( %1*%{mellow_statusline#Flags()}%*%)'
         " Git branch indicator.
-        let l:statusline .= '%( %2*%{mellow_statusline#GitBranch()}%*%)'
+        let l:statusline .= '%( %4*%{mellow_statusline#GitBranch()}%*%)'
         " Switch to left side.
         let l:statusline .= '%='
         " Line and column numbers.
         let l:statusline .= '%l,%c%V'
         " ALE linter status.
-        let l:statusline .= '%( %1*%{mellow_statusline#ALE()}%)'
+        let l:statusline .= '%( %1*%{mellow_statusline#ALE()}%*%)'
         " Custom diagnostic function.
         if exists('g:MellowDiagnosticFunction')
             let l:statusline .= '%( %1*%{g:MellowDiagnosticFunction()}%*%)'

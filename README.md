@@ -29,6 +29,10 @@ Taken on alacritty with LiberationMono font:
 ![term-zsh](./img/term_zsh.png)
 
 
+**Note: The colors depend on User1..9 highlight groups. These screenshots show
+colors as set by the [mellow] colorscheme (bg=light)**
+
+
 ## Installation
 
 If you use a vim plugin manager (recommended), consult the relevant
