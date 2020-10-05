@@ -1,7 +1,7 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Functions for vim-mellow-statusline components.
 " Maintainer: adigitoleo <adigitoleo@protonmail.com>
-" Version: 0.2
+" see also: ../plugin/mellow_statusline.vim
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
