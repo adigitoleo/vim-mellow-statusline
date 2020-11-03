@@ -19,6 +19,8 @@
 
 Taken on alacritty with LiberationMono font:
 
+**bg=light**
+
 ![normal-mode](./img/normal_mode.png)
 ![insert-mode](./img/insert_mode.png)
 ![replace-mode](./img/replace_mode.png)
@@ -27,8 +29,16 @@ Taken on alacritty with LiberationMono font:
 ![term-zsh](./img/term_zsh.png)
 
 
-**Note: The colors depend on User1..9 highlight groups. These screenshots show
-colors as set by the [mellow] colorscheme (bg=light)**
+**bg=dark**
+
+![normal-mode-dark](./img/normal_mode_dark.png)
+![insert-mode-dark](./img/insert_mode_dark.png)
+![replace-mode-dark](./img/replace_mode_dark.png)
+![visual-mode-dark](./img/visual_mode_dark.png)
+![cmdline-mode-dark](./img/cmdline_mode_dark.png)
+![term-zsh-dark](./img/term_zsh_dark.png)
+
+**Note: The colors depend on User1..9 highlight groups.**
 
 Features:
 - Mode indicator (no need for `showmode`)
