@@ -1,9 +1,5 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Functions for vim-mellow-statusline components.
-" Maintainer: adigitoleo <adigitoleo@protonmail.com>
-" see also: ../plugin/mellow_statusline.vim
-"
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Autoload functions for Mellow Statusline:
+" <https://github.com/adigitoleo/vim-mellow-statusline>
 
 
 function! mellow_statusline#Mode(mode_map) abort
@@ -19,7 +15,7 @@ function! mellow_statusline#File() abort
     if &buftype != ''
         return expand('%:t')
     else
-        return pathshorten(expand('%:~'))
+        return pathshorten(expand('%:~:.'))
     endif
 endfunction
 

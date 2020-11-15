@@ -1,9 +1,13 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Minimal statusline for (neo)vim, best served with the mellow colorscheme.
-" Maintainer: adigitoleo <adigitoleo@protonmail.com>
-" Version: 0.3
+"  __  __      _ _                 ____  _        _             _ _
+" |  \/  | ___| | | _____      __ / ___|| |_ __ _| |_ _   _ ___| (_)_ __   ___
+" | |\/| |/ _ \ | |/ _ \ \ /\ / / \___ \| __/ _` | __| | | / __| | | '_ \ / _ \
+" | |  | |  __/ | | (_) \ V  V /   ___) | || (_| | |_| |_| \__ \ | | | | |  __/
+" |_|  |_|\___|_|_|\___/ \_/\_/   |____/ \__\__,_|\__|\__,_|___/_|_|_| |_|\___|
 "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Maintainer: adigitoleo <adigitoleo@protonmail.com>
+" Version: 0.3.1
+" Description: A minimal statusline for (neo)vim, best served with the mellow colorscheme.
+" Homepage: https://github.com/adigitoleo/vim-mellow-statusline
 
 
 if exists('g:loaded_mellow_statusline')
