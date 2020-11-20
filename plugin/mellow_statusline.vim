@@ -5,7 +5,7 @@
 " |_|  |_|\___|_|_|\___/ \_/\_/   |____/ \__\__,_|\__|\__,_|___/_|_|_| |_|\___|
 "
 " Maintainer: adigitoleo <adigitoleo@protonmail.com>
-" Version: 0.3.2
+" Version: 0.3.3
 " Description: A minimal statusline for (neo)vim, best served with the mellow colorscheme.
 " Homepage: https://github.com/adigitoleo/vim-mellow-statusline
 

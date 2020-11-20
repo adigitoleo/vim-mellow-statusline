@@ -62,6 +62,7 @@ function! mellow_statusline#ALE() abort
 
     if l:num_errors == 0 && l:num_warnings == 0
         return ''
+    endif
     return printf('%dW %dE', num_warnings, num_errors)
 endfunction
 
