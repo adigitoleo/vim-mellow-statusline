@@ -60,6 +60,8 @@ function! mellow_statusline#ALE() abort
     let l:num_errors = l:counts.error + l:counts.style_error
     let l:num_warnings = l:counts.total - l:num_errors
 
+    if l:num_errors == 0 && l:num_warnings == 0
+        return ''
     return printf('%dW %dE', num_warnings, num_errors)
 endfunction
 

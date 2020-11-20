@@ -43,6 +43,7 @@ Taken on alacritty with LiberationMono font:
 Features:
 - Mode indicator (no need for `showmode`)
 - Shortened file path, focusing on the file name
+- Built-in support for linting via [ALE]
 - Distinct color for special file flags and diagnostics (see [usage](#usage))
 - Distinct color for git branch indicator (requires [vim-fugitive])
 - Clean statusline for `:terminal` and special buffers
