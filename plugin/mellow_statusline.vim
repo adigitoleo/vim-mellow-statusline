@@ -5,7 +5,7 @@
 " |_|  |_|\___|_|_|\___/ \_/\_/   |____/ \__\__,_|\__|\__,_|___/_|_|_| |_|\___|
 "
 " Maintainer: adigitoleo <adigitoleo@protonmail.com>
-" Version: 0.3.3
+" Version: 0.3.4
 " Description: A minimal statusline for (neo)vim, best served with the mellow colorscheme.
 " Homepage: https://github.com/adigitoleo/vim-mellow-statusline
 
@@ -51,7 +51,7 @@ function! MellowStatusline(is_active) abort
         " Mode indicator, colors are dynamic so DON'T USE A %{} BLOCK.
         let l:statusline .= mellow_statusline#Mode(g:mellow_mode_map)
         " Short file path.
-        let l:statusline .= '%( %{mellow_statusline#File()}%<%)'
+        let l:statusline .= '%( %{mellow_statusline#File()}%)'
         " Special file flags.
         let l:statusline .= '%( %1*%{mellow_statusline#Flags()}%*%)'
         " Git branch indicator.
@@ -59,7 +59,7 @@ function! MellowStatusline(is_active) abort
         " Switch to left side.
         let l:statusline .= '%='
         " Line and column numbers.
-        let l:statusline .= '%l,%c%V'
+        let l:statusline .= ' %l,%c%V'
         " ALE linter status.
         let l:statusline .= '%( %1*%{mellow_statusline#ALE()}%*%)'
         " Custom diagnostic function.

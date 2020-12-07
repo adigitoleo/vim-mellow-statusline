@@ -3,7 +3,7 @@
 
 
 function! mellow_statusline#Mode(mode_map) abort
-    " Mode indicator for the active (FIX) statusline.
+    " Mode indicator for the active statusline.
     let l:mode = mode()
     let [mode_color, mode_text] = a:mode_map[l:mode]
     return join([mode_color, mode_text, '%*'])
@@ -11,7 +11,7 @@ endfunction
 
 
 function! mellow_statusline#File() abort
-    " Shorter file/buffer identifier.
+    " Shortened file/buffer path.
     if &buftype != ''
         return expand('%:t')
     else
