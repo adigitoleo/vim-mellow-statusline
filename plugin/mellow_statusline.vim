@@ -68,8 +68,8 @@ function! MellowStatusline(is_active) abort
         endif
         " Indentation warnings.
         let l:statusline .= '%( %1*%{mellow_statusline#CheckIndent()}%*%)'
-        " File type (TODO: add input indicator).
-        let l:statusline .= '%( %{&ft}%)'
+        " File type (and encoding if not utf-8).
+        let l:statusline .= '%( %{&fenc !=# "utf-8" && &ft ? &fenc .. " | " .. &ft : &ft}%)'
         " Add trailing space (balances leading space before mode indicator).
         let l:statusline .= ' '
     else
@@ -99,7 +99,7 @@ endfunction
 augroup mellow_statusline
     " Autocommands for setting the statusline.
     autocmd!
-    autocmd CursorHold,BufWritePost * unlet! b:mellow_indent_warning
+    autocmd CursorHold,BufWritePost,InsertLeave * unlet! b:mellow_indent_warning
     autocmd VimEnter * call s:UpdateInactiveStatuslines()
     autocmd WinEnter,BufWinEnter * setlocal statusline=%!MellowStatusline(v:true)
     autocmd WinLeave * setlocal statusline=%!MellowStatusline(v:false)

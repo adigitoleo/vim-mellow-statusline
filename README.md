@@ -69,7 +69,7 @@ For manual installation, download the files from GitHub and put both the
 After installation, the statusline should work upon the next restart of
 (neo)vim. The statusline uses the User1-9 highlight groups by default (see
 `:help hl-User1..9`). If you want to use the recommended [mellow] colorscheme,
-remember to load it first. Additionally, add the following to your config file
+remember to load it as well. For example, add the following to your config file
 (see `:help vimrc`):
 
 ```vim
