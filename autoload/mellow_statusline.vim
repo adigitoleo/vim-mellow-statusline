@@ -38,7 +38,7 @@ endfunction
 
 function! mellow_statusline#GitBranch() abort
     " Parse git branch name from Fugitive.
-    let l:gitbranch = exists("g:loaded_fugitive")?fugitive#statusline():""
+    let l:gitbranch = exists('g:loaded_fugitive') ? fugitive#statusline() : ''
     let l:gitbranch = substitute(l:gitbranch, '[Git(', '[', '')
     let l:gitbranch = substitute(l:gitbranch, ')]', ']', '')
     return l:gitbranch
@@ -46,7 +46,7 @@ endfunction
 
 
 function! mellow_statusline#ALE() abort
-    " Linter status, see https://github.com/dense-analysis/ale#faq-statusline
+    " Linter status, see <https://github.com/dense-analysis/ale#faq-statusline>.
     if (exists('b:ale_enabled') && !b:ale_enabled)
                 \ || (exists('g:ale_enabled') && !g:ale_enabled)
         return ''
@@ -69,7 +69,7 @@ endfunction
 
 function! mellow_statusline#CheckIndent() abort
     " Mixed indent or bad expandtab warning.
-    " See https://github.com/millermedeiros/vim-statline
+    " See <https://github.com/millermedeiros/vim-statline>.
     if !exists('b:mellow_indent_warning')
         let b:mellow_indent_warning = ''
 
