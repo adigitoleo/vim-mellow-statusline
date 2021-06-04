@@ -24,6 +24,9 @@ else
     let s:normal = 'vim'
 endif
 
+let s:fugitive_enabled = get(g:, 'mellow_fugitive_enabled', v:true)
+let s:ale_enabled = get(g:, 'mellow_ale_enabled', v:true)
+
 " Define mode colors and strings.
 let g:mellow_mode_map = get(g:, 'mellow_mode_map',
             \{
@@ -46,29 +49,31 @@ let g:mellow_mode_map = get(g:, 'mellow_mode_map',
 function! MellowStatusline(is_active) abort
     let l:statusline = ''
 
-    " Construct format string, using %(...%) to hide impermanent blocks.
     if a:is_active
-        " Colors are dynamic for the mode indicator, so DON'T USE A %{} BLOCK.
         let l:statusline .= mellow_statusline#Mode(g:mellow_mode_map)
-        let l:statusline .= '%( %{mellow_statusline#File()}%)'
-        let l:statusline .= '%( %1*%{mellow_statusline#Flags()}%*%)'
-        let l:statusline .= '%( %4*%{mellow_statusline#GitBranch()}%*%)'
+        let l:statusline .= mellow_statusline#File()
+        let l:statusline .= mellow_statusline#Flags()
+        if s:fugitive_enabled
+            let l:statusline .= mellow_statusline#FugitiveBranch()
+        endif
 
         let l:statusline .= '%='
         let l:statusline .= ' %l,%c%V'
-        let l:statusline .= '%( %1*%{mellow_statusline#ALE()}%*%)'
+        if s:ale_enabled
+            let l:statusline .= mellow_statusline#ALE()
+        endif
         if exists('g:MellowDiagnosticFunction')
             let l:statusline .= '%( %1*%{g:MellowDiagnosticFunction()}%*%)'
         endif
-        let l:statusline .= '%( %1*%{mellow_statusline#CheckIndent()}%*%)'
+        let l:statusline .= mellow_statusline#CheckIndent()
         " File type (and encoding if not utf-8).
         let l:statusline .= '%( %{&fenc !=# "utf-8" && &ft ? &fenc .. " | " .. &ft : &ft}%)'
         " Add trailing space (balances leading space before mode indicator).
         let l:statusline .= ' '
     else
         " Inactive statusline: monochromatic subset of active variant.
-        let l:statusline .= '%( %{mellow_statusline#File()}%<%)'
-        let l:statusline .= '%( %{mellow_statusline#Flags()}%)'
+        let l:statusline .= mellow_statusline#File()
+        let l:statusline .= mellow_statusline#Flags()
         let l:statusline .= '%='
         let l:statusline .= '%l,%c%V'
         let l:statusline .= ' '

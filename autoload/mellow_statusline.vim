@@ -1,27 +1,46 @@
 " Autoload functions for Mellow Statusline:
 " <https://github.com/adigitoleo/vim-mellow-statusline>
 
+function! mellow_statusline#Part(text, color, ...) abort
+    let l:t_func = exists('v:t_func') ? v:t_func : type(function('type'))
+    let l:t_string = exists('v:t_string') ? v:t_string : type('')
+    let l:pad_left = repeat(' ', get(a:, 1, 0))
+    let l:pad_right = repeat(' ', get(a:, 2, 0))
 
-function! mellow_statusline#Mode(mode_map) abort
-    " Mode indicator for the active statusline.
-    let l:mode = mode()
-    let [mode_color, mode_text] = a:mode_map[l:mode]
-    return join([mode_color, mode_text, '%*'])
-endfunction
-
-
-function! mellow_statusline#File() abort
-    " Shortened file/buffer path.
-    if &buftype != ''
-        return expand('%:t')
+    if type(a:text) == l:t_func
+        let l:text = l:pad_left .. a:text() .. l:pad_right
+    elseif type(a:text) == l:t_string
+        let l:text = l:pad_left .. a:text .. l:pad_right
     else
-        return pathshorten(expand('%:~:.'))
+        throw 'mellow: wrong argument type for a:text'
+    endif
+
+    if type(a:color) == l:t_func
+        return a:color(l:text) .. l:text .. '%*'
+    elseif type(a:color) == l:t_string
+        return a:color .. l:text .. '%*'
+    else
+        throw 'mellow: wrong argument type for a:color'
     endif
 endfunction
 
 
+function! mellow_statusline#Mode(mode_map) abort
+    let [l:color, l:text] = get(a:mode_map, mode())
+    return mellow_statusline#Part(l:text, l:color, 1, 1)
+endfunction
+
+
+function! mellow_statusline#File() abort
+    let l:file = &buftype != '' ? expand('%:t') : pathshorten(expand('%:~:.'))
+    if get(g:, 'mellow_show_bufnr', 1)
+        let l:file = bufnr() .. ':' .. l:file
+    endif
+    return mellow_statusline#Part(l:file, '', 1)
+endfunction
+
+
 function! mellow_statusline#Flags() abort
-    " File flags (modified, readonly).
     let l:flags = []
     if (&modifiable && &modified)
         call add(l:flags, '+')
@@ -32,16 +51,19 @@ function! mellow_statusline#Flags() abort
     endif
 
     " Using join avoids adding extraneous spaces.
-    return join(l:flags)
+    return empty(l:flags) ? '' : mellow_statusline#Part(join(l:flags), '%1*', 1)
 endfunction
 
 
-function! mellow_statusline#GitBranch() abort
-    " Parse git branch name from Fugitive.
-    let l:gitbranch = exists('g:loaded_fugitive') ? fugitive#statusline() : ''
-    let l:gitbranch = substitute(l:gitbranch, '[Git(', '[', '')
-    let l:gitbranch = substitute(l:gitbranch, ')]', ']', '')
-    return l:gitbranch
+function! mellow_statusline#FugitiveBranch() abort
+    " Parse git branch name from Fugitive <https://github.com/tpope/vim-fugitive>.
+    if exists('g:loaded_fugitive')
+        let l:gitbranch = fugitive#statusline()
+        let l:gitbranch = substitute(l:gitbranch, '[Git(', '[', '')
+        let l:gitbranch = substitute(l:gitbranch, ')]', ']', '')
+        return mellow_statusline#Part(l:gitbranch, '%4*', 1)
+    endif
+    return ''
 endfunction
 
 
@@ -52,27 +74,26 @@ function! mellow_statusline#ALE() abort
         return ''
     endif
 
-    if ale#engine#IsCheckingBuffer(bufnr())
-        return '...'
+    let l:bufnr = bufnr()
+    if ale#engine#IsCheckingBuffer(l:bufnr)
+        let l:ale_msg = '...'
+    else
+        let l:counts = ale#statusline#Count(l:bufnr)
+        let l:num_errors = l:counts.error + l:counts.style_error
+        let l:num_warnings = l:counts.total - l:num_errors
+        if l:num_errors == 0 && l:num_warnings == 0
+            return ''
+        endif
+        let l:ale_msg = printf('%dW %dE', num_warnings, num_errors)
     endif
-
-    let l:counts = ale#statusline#Count(bufnr())
-    let l:num_errors = l:counts.error + l:counts.style_error
-    let l:num_warnings = l:counts.total - l:num_errors
-
-    if l:num_errors == 0 && l:num_warnings == 0
-        return ''
-    endif
-    return printf('%dW %dE', num_warnings, num_errors)
+    return mellow_statusline#Part(l:ale_msg, '%1*', 1)
 endfunction
 
 
 function! mellow_statusline#CheckIndent() abort
-    " Mixed indent or bad expandtab warning.
-    " See <https://github.com/millermedeiros/vim-statline>.
+    " Mixed indent or bad expandtab warning, see <https://github.com/millermedeiros/vim-statline>.
     if !exists('b:mellow_indent_warning')
         let b:mellow_indent_warning = ''
-
         if !&modifiable
             return b:mellow_indent_warning
         endif
@@ -88,5 +109,6 @@ function! mellow_statusline#CheckIndent() abort
             let b:mellow_indent_warning = 'expandtab'
         endif
     endif
-    return b:mellow_indent_warning
+    return strlen(b:mellow_indent_warning) ?
+                \ mellow_statusline#Part(b:mellow_indent_warning, '%1*', 1) : ''
  endfunction
