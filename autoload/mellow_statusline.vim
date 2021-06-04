@@ -16,12 +16,13 @@ function! mellow_statusline#Part(text, color, ...) abort
     endif
 
     if type(a:color) == l:t_func
-        return a:color(l:text) .. l:text .. '%*'
+        let l:color = a:color(l:text)
     elseif type(a:color) == l:t_string
-        return a:color .. l:text .. '%*'
+        let l:color = a:color
     else
         throw 'mellow: wrong argument type for a:color'
     endif
+    return strlen(l:color) ? l:color .. l:text .. '%*' : l:text
 endfunction
 
 

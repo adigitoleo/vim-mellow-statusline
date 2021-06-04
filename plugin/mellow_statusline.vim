@@ -5,7 +5,7 @@
 " /__/\/\__\___/__/__/\____/  \_/\_/ statusline
 
 " Maintainer: adigitoleo <vim-mellow-statusline@adigitoleo.dissimulo.com>
-" Version: 0.4.0
+" Version: 0.4.1
 " Description: A minimal statusline for (neo)vim, best served with the mellow colorscheme.
 " Homepage: https://github.com/adigitoleo/vim-mellow-statusline
 
@@ -72,8 +72,9 @@ function! MellowStatusline(is_active) abort
         let l:statusline .= ' '
     else
         " Inactive statusline: monochromatic subset of active variant.
-        let l:statusline .= mellow_statusline#File()
-        let l:statusline .= mellow_statusline#Flags()
+        let l:statusline .= ' '
+        let l:statusline .= '%{mellow_statusline#File()}'
+        " let l:statusline .= '%{mellow_statusline#Flags()}'
         let l:statusline .= '%='
         let l:statusline .= '%l,%c%V'
         let l:statusline .= ' '
