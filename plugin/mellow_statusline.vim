@@ -5,7 +5,7 @@
 " /__/\/\__\___/__/__/\____/  \_/\_/ statusline
 
 " Maintainer: adigitoleo <vim-mellow-statusline@adigitoleo.dissimulo.com>
-" Version: 0.3.5
+" Version: 0.4.0
 " Description: A minimal statusline for (neo)vim, best served with the mellow colorscheme.
 " Homepage: https://github.com/adigitoleo/vim-mellow-statusline
 
