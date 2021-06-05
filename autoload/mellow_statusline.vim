@@ -26,22 +26,22 @@ function! mellow_statusline#Part(text, color, ...) abort
 endfunction
 
 
-function! mellow_statusline#Mode(mode_map) abort
+function! mellow_statusline#Mode(mode_map, lpad, rpad) abort
     let [l:color, l:text] = get(a:mode_map, mode())
-    return mellow_statusline#Part(l:text, l:color, 1, 1)
+    return mellow_statusline#Part(l:text, l:color, a:lpad, a:rpad)
 endfunction
 
 
-function! mellow_statusline#File() abort
+function! mellow_statusline#File(color, lpad) abort
     let l:file = &buftype != '' ? expand('%:t') : pathshorten(expand('%:~:.'))
     if get(g:, 'mellow_show_bufnr', 1)
         let l:file = bufnr() .. ':' .. l:file
     endif
-    return mellow_statusline#Part(l:file, '', 1)
+    return mellow_statusline#Part(l:file, a:color, a:lpad)
 endfunction
 
 
-function! mellow_statusline#Flags() abort
+function! mellow_statusline#Flags(color, lpad) abort
     let l:flags = []
     if (&modifiable && &modified)
         call add(l:flags, '+')
@@ -52,23 +52,23 @@ function! mellow_statusline#Flags() abort
     endif
 
     " Using join avoids adding extraneous spaces.
-    return empty(l:flags) ? '' : mellow_statusline#Part(join(l:flags), '%1*', 1)
+    return empty(l:flags) ? '' : mellow_statusline#Part(join(l:flags), a:color, a:lpad)
 endfunction
 
 
-function! mellow_statusline#FugitiveBranch() abort
+function! mellow_statusline#FugitiveBranch(color, lpad) abort
     " Parse git branch name from Fugitive <https://github.com/tpope/vim-fugitive>.
     if exists('g:loaded_fugitive')
         let l:gitbranch = fugitive#statusline()
         let l:gitbranch = substitute(l:gitbranch, '[Git(', '[', '')
         let l:gitbranch = substitute(l:gitbranch, ')]', ']', '')
-        return mellow_statusline#Part(l:gitbranch, '%4*', 1)
+        return mellow_statusline#Part(l:gitbranch, a:color, a:lpad)
     endif
     return ''
 endfunction
 
 
-function! mellow_statusline#ALE() abort
+function! mellow_statusline#ALE(color, lpad) abort
     " Linter status, see <https://github.com/dense-analysis/ale#faq-statusline>.
     if (exists('b:ale_enabled') && !b:ale_enabled)
                 \ || (exists('g:ale_enabled') && !g:ale_enabled)
@@ -87,11 +87,11 @@ function! mellow_statusline#ALE() abort
         endif
         let l:ale_msg = printf('%dW %dE', num_warnings, num_errors)
     endif
-    return mellow_statusline#Part(l:ale_msg, '%1*', 1)
+    return mellow_statusline#Part(l:ale_msg, a:color, a:lpad)
 endfunction
 
 
-function! mellow_statusline#CheckIndent() abort
+function! mellow_statusline#CheckIndent(color, lpad) abort
     " Mixed indent or bad expandtab warning, see <https://github.com/millermedeiros/vim-statline>.
     if !exists('b:mellow_indent_warning')
         let b:mellow_indent_warning = ''
@@ -111,5 +111,5 @@ function! mellow_statusline#CheckIndent() abort
         endif
     endif
     return strlen(b:mellow_indent_warning) ?
-                \ mellow_statusline#Part(b:mellow_indent_warning, '%1*', 1) : ''
+                \ mellow_statusline#Part(b:mellow_indent_warning, a:color, a:lpad) : ''
  endfunction

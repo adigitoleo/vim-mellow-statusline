@@ -50,33 +50,33 @@ function! MellowStatusline(is_active) abort
     let l:statusline = ''
 
     if a:is_active
-        let l:statusline .= mellow_statusline#Mode(g:mellow_mode_map)
-        let l:statusline .= mellow_statusline#File()
-        let l:statusline .= mellow_statusline#Flags()
+        let l:statusline .= mellow_statusline#Mode(g:mellow_mode_map, 1, 1)
+        let l:statusline .= mellow_statusline#File('', 1)
+        let l:statusline .= mellow_statusline#Flags ('%1*', 1)
         if s:fugitive_enabled
-            let l:statusline .= mellow_statusline#FugitiveBranch()
+            let l:statusline .= mellow_statusline#FugitiveBranch('%4*', 1)
         endif
 
         let l:statusline .= '%='
         let l:statusline .= ' %l,%c%V'
         if s:ale_enabled
-            let l:statusline .= mellow_statusline#ALE()
+            let l:statusline .= mellow_statusline#ALE('%1*', 1)
         endif
         if exists('g:MellowDiagnosticFunction')
             let l:statusline .= '%( %1*%{g:MellowDiagnosticFunction()}%*%)'
         endif
-        let l:statusline .= mellow_statusline#CheckIndent()
+        let l:statusline .= mellow_statusline#CheckIndent('%1*', 1)
         " File type (and encoding if not utf-8).
         let l:statusline .= '%( %{&fenc !=# "utf-8" && &ft ? &fenc .. " | " .. &ft : &ft}%)'
         " Add trailing space (balances leading space before mode indicator).
         let l:statusline .= ' '
     else
-        " Inactive statusline: monochromatic subset of active variant.
-        let l:statusline .= ' '
-        let l:statusline .= '%{mellow_statusline#File()}'
-        " let l:statusline .= '%{mellow_statusline#Flags()}'
+        " Monochromatic subset of the above.
+        let l:statusline .= ' %{mellow_statusline#File("", 0)}'
+        let l:statusline .= ' %{mellow_statusline#Flags("", 0)}'
         let l:statusline .= '%='
         let l:statusline .= '%l,%c%V'
+        let l:statusline .= '%( %{&fenc !=# "utf-8" && &ft ? &fenc .. " | " .. &ft : &ft}%)'
         let l:statusline .= ' '
     endif
 
