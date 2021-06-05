@@ -10,7 +10,7 @@ function! mellow_statusline#Part(text, color, ...) abort
     if type(a:text) == l:t_func
         let l:text_raw = a:text()
     elseif type(a:text) == l:t_string
-        let l:text_raw = a:text()
+        let l:text_raw = a:text
     else
         throw 'mellow: wrong argument type for a:text'
     endif
