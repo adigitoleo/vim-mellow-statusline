@@ -8,11 +8,17 @@ function! mellow_statusline#Part(text, color, ...) abort
     let l:pad_right = repeat(' ', get(a:, 2, 0))
 
     if type(a:text) == l:t_func
-        let l:text = l:pad_left .. a:text() .. l:pad_right
+        let l:text_raw = a:text()
     elseif type(a:text) == l:t_string
-        let l:text = l:pad_left .. a:text .. l:pad_right
+        let l:text_raw = a:text()
     else
         throw 'mellow: wrong argument type for a:text'
+    endif
+
+    if strlen(l:text_raw)
+        let l:text = l:pad_left .. l:text_raw .. l:pad_right
+    else
+        return ''
     endif
 
     if type(a:color) == l:t_func
@@ -51,41 +57,40 @@ function! mellow_statusline#Flags(color, lpad) abort
         call add(l:flags, 'RO')
     endif
 
-    " Using join avoids adding extraneous spaces.
-    return empty(l:flags) ? '' : mellow_statusline#Part(join(l:flags), a:color, a:lpad)
+    return mellow_statusline#Part(join(l:flags), a:color, a:lpad)
 endfunction
 
 
 function! mellow_statusline#FugitiveBranch(color, lpad) abort
     " Parse git branch name from Fugitive <https://github.com/tpope/vim-fugitive>.
+    let l:gitbranch = ''
     if exists('g:loaded_fugitive')
         let l:gitbranch = fugitive#statusline()
         let l:gitbranch = substitute(l:gitbranch, '[Git(', '[', '')
         let l:gitbranch = substitute(l:gitbranch, ')]', ']', '')
-        return mellow_statusline#Part(l:gitbranch, a:color, a:lpad)
     endif
-    return ''
+    return mellow_statusline#Part(l:gitbranch, a:color, a:lpad)
 endfunction
 
 
 function! mellow_statusline#ALE(color, lpad) abort
     " Linter status, see <https://github.com/dense-analysis/ale#faq-statusline>.
-    if (exists('b:ale_enabled') && !b:ale_enabled)
-                \ || (exists('g:ale_enabled') && !g:ale_enabled)
-        return ''
-    endif
-
-    let l:bufnr = bufnr()
-    if ale#engine#IsCheckingBuffer(l:bufnr)
-        let l:ale_msg = '...'
-    else
-        let l:counts = ale#statusline#Count(l:bufnr)
-        let l:num_errors = l:counts.error + l:counts.style_error
-        let l:num_warnings = l:counts.total - l:num_errors
-        if l:num_errors == 0 && l:num_warnings == 0
-            return ''
+    if exists('g:ale_enabled') && g:ale_enabled
+        if !exists('b:ale_enabled') || b:ale_enabled
+            let l:bufnr = bufnr()
+            if ale#engine#IsCheckingBuffer(l:bufnr)
+                let l:ale_msg = '...'
+            else
+                let l:counts = ale#statusline#Count(l:bufnr)
+                let l:num_errors = l:counts.error + l:counts.style_error
+                let l:num_warnings = l:counts.total - l:num_errors
+                if l:num_errors == 0 && l:num_warnings == 0
+                    let l:ale_msg = ''
+                else
+                    let l:ale_msg = printf('%dW %dE', num_warnings, num_errors)
+                endif
+            endif
         endif
-        let l:ale_msg = printf('%dW %dE', num_warnings, num_errors)
     endif
     return mellow_statusline#Part(l:ale_msg, a:color, a:lpad)
 endfunction
@@ -95,27 +100,22 @@ function! mellow_statusline#WhitespaceCheck(color, lpad) abort
     " Mixed indent, bad expandtab or trailing spaces warning, see <https://github.com/millermedeiros/vim-statline>.
     if !exists('b:mellow_whitespace_warning')
         let l:warning = ''
-        if !&modifiable
-            let b:mellow_whitespace_warning = l:warning
-            return l:warning
-        endif
+        if &modifiable
+            let l:tabs = search('^\t', 'nw') > 0
+            let l:spaces = search('^ \+', 'nw') > 0
+            if l:tabs && l:spaces
+                let l:warning = 'mixed indent'
+            elseif l:spaces && !&expandtab
+                let l:warning = 'noexpandtab'
+            elseif l:tabs && &expandtab
+                let l:warning = 'expandtab'
+            endif
 
-        let l:tabs = search('^\t', 'nw') > 0
-        let l:spaces = search('^ \+', 'nw') > 0
-        if l:tabs && l:spaces
-            let l:warning = 'mixed indent'
-        elseif l:spaces && !&expandtab
-            let l:warning = 'noexpandtab'
-        elseif l:tabs && &expandtab
-            let l:warning = 'expandtab'
+            if search('\s\+$', 'nw') > 0
+                let l:warning = strlen(l:warning) ? l:warning .. ',trails' : 'trails'
+            endif
         endif
-
-        if search('\s\+$', 'nw') > 0
-            let l:warning = strlen(l:warning) ? l:warning .. ',trails' : 'trails'
-        endif
-
         let b:mellow_whitespace_warning = l:warning
     endif
-    let l:lpad = strlen(b:mellow_whitespace_warning) ? a:lpad : 0
-    return mellow_statusline#Part(b:mellow_whitespace_warning, a:color, l:lpad)
+    return mellow_statusline#Part(b:mellow_whitespace_warning, a:color, a:lpad)
 endfunction
