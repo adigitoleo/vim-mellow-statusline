@@ -57,19 +57,20 @@ function! MellowStatusline(is_active) abort
         if s:fugitive_enabled
             let l:statusline .= mellow_statusline#FugitiveBranch('%4*', 1)
         endif
-
         let l:statusline .= '%='
         let l:statusline .= ' %l,%c%V'
+        if exists('g:mellow_custom_parts')
+            for spec in g:mellow_custom_parts
+                let [l:Text, l:Color, l:lpad, l:rpad] = spec
+                let l:statusline .= mellow_statusline#Part(l:Text, l:Color, l:lpad, l:rpad)
+            endfor
+        endif
         if s:ale_enabled
             let l:statusline .= mellow_statusline#ALE('%1*', 1)
-        endif
-        if exists('g:MellowDiagnosticFunction')
-            let l:statusline .= '%( %1*%{g:MellowDiagnosticFunction()}%*%)'
         endif
         let l:statusline .= mellow_statusline#CheckIndent('%1*', 1)
         " File type (and encoding if not utf-8).
         let l:statusline .= '%( %{&fenc !=# "utf-8" && &ft ? &fenc .. " | " .. &ft : &ft}%)'
-        " Add trailing space (balances leading space before mode indicator).
         let l:statusline .= ' '
     else
         " Monochromatic subset of the above.
