@@ -68,7 +68,7 @@ function! MellowStatusline(is_active) abort
         if s:ale_enabled
             let l:statusline .= mellow_statusline#ALE('%1*', 1)
         endif
-        let l:statusline .= mellow_statusline#CheckIndent('%1*', 1)
+        let l:statusline .= mellow_statusline#WhitespaceCheck('%1*', 1)
         " File type (and encoding if not utf-8).
         let l:statusline .= '%( %{&fenc !=# "utf-8" && &ft ? &fenc .. " | " .. &ft : &ft}%)'
         let l:statusline .= ' '
@@ -100,7 +100,7 @@ endfunction
 augroup mellow_statusline
     " Autocommands for setting the statusline.
     autocmd!
-    autocmd CursorHold,BufWritePost,InsertLeave * unlet! b:mellow_indent_warning
+    autocmd CursorHold,BufWritePost,InsertLeave * unlet! b:mellow_whitespace_warning
     autocmd VimEnter * call s:UpdateInactiveStatuslines()
     autocmd WinEnter,BufWinEnter * setlocal statusline=%!MellowStatusline(v:true)
     autocmd WinLeave * setlocal statusline=%!MellowStatusline(v:false)

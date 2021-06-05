@@ -91,25 +91,31 @@ function! mellow_statusline#ALE(color, lpad) abort
 endfunction
 
 
-function! mellow_statusline#CheckIndent(color, lpad) abort
-    " Mixed indent or bad expandtab warning, see <https://github.com/millermedeiros/vim-statline>.
-    if !exists('b:mellow_indent_warning')
-        let b:mellow_indent_warning = ''
+function! mellow_statusline#WhitespaceCheck(color, lpad) abort
+    " Mixed indent, bad expandtab or trailing spaces warning, see <https://github.com/millermedeiros/vim-statline>.
+    if !exists('b:mellow_whitespace_warning')
+        let l:warning = ''
         if !&modifiable
-            return b:mellow_indent_warning
+            let b:mellow_whitespace_warning = l:warning
+            return l:warning
         endif
 
         let l:tabs = search('^\t', 'nw') > 0
         let l:spaces = search('^ \+', 'nw') > 0
-
         if l:tabs && l:spaces
-            let b:mellow_indent_warning = 'mixed indent'
+            let l:warning = 'mixed indent'
         elseif l:spaces && !&expandtab
-            let b:mellow_indent_warning = 'noexpandtab'
+            let l:warning = 'noexpandtab'
         elseif l:tabs && &expandtab
-            let b:mellow_indent_warning = 'expandtab'
+            let l:warning = 'expandtab'
         endif
+
+        if search('\s\+$', 'nw') > 0
+            let l:warning = strlen(l:warning) ? l:warning .. ',trails' : 'trails'
+        endif
+
+        let b:mellow_whitespace_warning = l:warning
     endif
-    return strlen(b:mellow_indent_warning) ?
-                \ mellow_statusline#Part(b:mellow_indent_warning, a:color, a:lpad) : ''
- endfunction
+    let l:lpad = strlen(b:mellow_whitespace_warning) ? a:lpad : 0
+    return mellow_statusline#Part(b:mellow_whitespace_warning, a:color, l:lpad)
+endfunction
