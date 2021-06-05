@@ -26,10 +26,7 @@ endif
 
 let s:fugitive_enabled = get(g:, 'mellow_fugitive_enabled', v:true)
 let s:ale_enabled = get(g:, 'mellow_ale_enabled', v:true)
-
-" Define mode colors and strings.
-let g:mellow_mode_map = get(g:, 'mellow_mode_map',
-            \{
+let s:mode_map = {
             \  'n':         ['%5*', s:normal ],
             \  'i':         ['%6*', 'insert'],
             \  'R':         ['%8*', 'replace'],
@@ -43,14 +40,18 @@ let g:mellow_mode_map = get(g:, 'mellow_mode_map',
             \  'S':         ['%7*', 's-line'],
             \  '\<C-s>':    ['%7*', 's-rect'],
             \  't':         ['%9*', 'term'],
-            \})
+            \}
+
+if exists('g:mellow_mode_map')
+    call extend(s:mode_map, g:mellow_mode_map)
+endif
 
 
 function! MellowStatusline(is_active) abort
     let l:statusline = ''
 
     if a:is_active
-        let l:statusline .= mellow_statusline#Mode(g:mellow_mode_map, 1, 1)
+        let l:statusline .= mellow_statusline#Mode(s:mode_map, 1, 1)
         let l:statusline .= mellow_statusline#File('', 1)
         let l:statusline .= mellow_statusline#Flags ('%1*', 1)
         if s:fugitive_enabled
