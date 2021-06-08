@@ -1,54 +1,5 @@
 # Mellow Statusline
 
-### A minimal statusline for (neo)vim, best served with [mellow]
-
-`Plug 'adigitoleo/vim-mellow-statusline'`
-
-
-<!-- vim-markdown-toc GFM -->
-
-* [Overview](#overview)
-* [Installation](#installation)
-* [Usage](#usage)
-* [Customization](#customization)
-* [Miscellaneous](#miscellaneous)
-
-<!-- vim-markdown-toc -->
-
-## Overview
-
-Taken on alacritty with LiberationMono font:
-
-**bg=light**
-
-![normal-mode](./img/normal_mode.png)
-![insert-mode](./img/insert_mode.png)
-![replace-mode](./img/replace_mode.png)
-![visual-mode](./img/visual_mode.png)
-![cmdline-mode](./img/cmdline_mode.png)
-![term-zsh](./img/term_zsh.png)
-
-
-**bg=dark**
-
-![normal-mode-dark](./img/normal_mode_dark.png)
-![insert-mode-dark](./img/insert_mode_dark.png)
-![replace-mode-dark](./img/replace_mode_dark.png)
-![visual-mode-dark](./img/visual_mode_dark.png)
-![cmdline-mode-dark](./img/cmdline_mode_dark.png)
-![term-zsh-dark](./img/term_zsh_dark.png)
-
-**Note: The colors depend on User1..9 highlight groups.**
-
-Features:
-- Mode indicator (no need for `showmode`)
-- Shortened file path, focusing on the file name
-- Built-in support for linting via [ALE]
-- Distinct color for special file flags and diagnostics (see [usage](#usage))
-- Distinct color for git branch indicator (requires [vim-fugitive])
-- Clean statusline for `:terminal` and special buffers
-
-
 ## Installation
 
 If you use a vim plugin manager (recommended), consult the relevant
@@ -83,6 +34,11 @@ groups (subject to [terminal compatibility]).
 
 
 ### Customization
+<!-- vim-markdown-toc GFM -->
+
+* [Miscellaneous](#miscellaneous)
+
+<!-- vim-markdown-toc -->
 
 The colors and text hints for different vim-modes can be configured by
 overwriting the `g:mellow_mode_map` dictionary. The default values can be found
@@ -91,14 +47,20 @@ in `plugin/mellow_statusline.vim` (search for that variable).
 The dictionary maps the first letter returned by `mode()` to both a color and a
 text string. See also `:help mode()` and `:help 'statusline'`.
 
-You can add custom information to the active statusline via the
-`g:MellowDiagnosticFunction` which should be set to a funcref that returns the
-desired diagnostic string. For example, if you use [CoC], you can set:
+**The `g:MellowDiagnosticFunction` support was removed in a recent commit.**
+Instructions on how to set up custom diagnostic components,
+and more comprehensive documentation overall, will be produced before the v1 release (shortly).
+If you're curious, take a look at the autoload function `mellow_statusline#Part`,
+which will provide the new framework for this.
+
+Here's a vimrc snippet example which adds a clock to the statusbar:
 
 ```vim
-let g:MellowDiagnosticFunction = function('coc#status')
+let g:mellow_custom_parts = [
+            \ [function('strftime', ['%H:%M']), '%2*', 1, 0],
+            \]
+
 ```
-The color is not yet configurable. See also `:help function()`.
 
 ## Miscellaneous
 
