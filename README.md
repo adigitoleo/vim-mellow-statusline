@@ -17,7 +17,6 @@ Taken on alacritty with LiberationMono font, using the [mellow] colorscheme:
     <img src="./img/visual_mode.png" width="75%" />
     <img src="./img/cmdline_mode.png" width="75%" />
     <img src="./img/term_zsh.png" width="75%" />
-
     <img src="./img/normal_mode_dark.png" width="75%" />
     <img src="./img/insert_mode_dark.png" width="75%" />
     <img src="./img/replace_mode_dark.png" width="75%" />
