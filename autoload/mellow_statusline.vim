@@ -75,6 +75,7 @@ endfunction
 
 function! mellow_statusline#ALE(color, lpad) abort
     " Linter status, see <https://github.com/dense-analysis/ale#faq-statusline>.
+    let l:ale_msg = ''
     if exists('g:ale_enabled') && g:ale_enabled
         if !exists('b:ale_enabled') || b:ale_enabled
             let l:bufnr = bufnr()
