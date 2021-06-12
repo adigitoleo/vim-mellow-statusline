@@ -1,0 +1,196 @@
+mellow-statusline	A simple ASCII statusline for (neo)vim
+		                 __ __
+		   _  _    ___  /  /  /______    ___
+		  / \/ \  / _ \/  /  / _  \  \/\/  /
+		 /      \/ ___/  /  / /_/ /\      /
+		/__/\/\__\___/__/__/\____/  \_/\_/ statusline
+
+		https://github.com/adigitoleo/vim-mellow-statusline
+
+==============================================================================
+CONTENTS					*mellow-statusline-contents*
+
+	1. Introduction ....................... |mellow-statusline-intro|
+	2. Installation ....................... |mellow-statusline-install|
+	3. Usage .............................. |mellow-statusline-usage|
+	4. Configuration ...................... |mellow-statusline-config|
+	5. Customization ...................... |mellow-statusline-custom|
+	6. Integration ........................ |mellow-statusline-integration|
+
+
+==============================================================================
+INTRODUCTION					*mellow-statusline-intro*
+
+This plugin provides a statusline for vim (version 8+) and neovim (version
+0.4+). The Mellow statusline is intentionally simple, using widely available
+ASCII characters. Integration with ALE and Fugitive is available by default,
+and custom components can be added for displaying additional diagnostics. See
+|mellow-statusline-integration| for more.
+
+The recommended Mellow colorscheme (https://github.com/adigitoleo/vim-mellow)
+optionally provides |hl-User1..9| colors (via |g:mellow_user_colors|), which
+are used for some statusline components. Alternatively, you can define these
+colors manually in your |config| file. See |mellow-statusline-usage| for a
+list of components and their color mappings.
+
+
+==============================================================================
+INSTALLATION					*mellow-statusline-install*
+
+Install the plugin using your preferred plugin manager. Alternatively, *vim
+can load |packages| if they are added to your |'packpath'| as follows:
+
+1. If it is missing, create the folder `pack/<package-group>/start` in your
+|'packpath'|, where `<package-group>` can be whatever you like.
+
+2. Download a tagged archive from
+<https://github.com/adigitoleo/vim-mellow-statusline/releases> and unpack it.
+
+3. Move the contents of the unpacked archive into a new folder
+`mellow-statusline`, created inside the package folder from step 1.
+
+NOTE: You will need to repeat this process to get new versions of the plugin.
+
+
+==============================================================================
+USAGE						*mellow-statusline-usage*
+
+The statusline consists of individually colored components, in the following
+layout (some components are skipped for inactive buffers): >
+	mode | buffer | flags | branch | line,column | diagnostics | filetype
+
+Variable colors are supported for the statusline of the active buffer.
+Inactive buffers always have a monochromatic statusline, which uses the
+|hl-StatusLineNC| color.
+
+An indicator of the active mode is displayed at the far left. See |vim-modes|
+and |g:mellow_mode_map|.
+
+The active buffer indicator uses the |hl-StatusLine| color. Directory names
+are abbreviated to reduce clutter. See also |g:mellow_show_bufnr|.
+
+Active buffer flags use the `User1` color.
+
+The git branch indicator, available if Fugitive is installed, uses the `User4`
+color. See also |g:mellow_fugitive_enabled|.
+
+Active buffer line and column indicators use the |hl-StatusLine| color.
+
+Diagnostics can be displayed using multiple components. By default, Mellow
+checks for mixed indentation, suspicious |'expandtab'| settings and trailing
+whitespace. Mellow also integrates with ALE to show the number of warnings (W)
+and erorrs (E) using the `User1` color. See also |g:mellow_ale_enabled|.
+
+At the far right, the |filetype| is shown using the |hl-StatusLine| color. The
+|'fileencoding'| is also shown if it is not the standard UTF-8 encoding.
+
+
+==============================================================================
+CONFIGURATION					*mellow-statusline-config*
+
+The following configuration options are supported for the Mellow statusline.
+
+------------------------------------------------------------------------------
+						*g:mellow_ale_enabled*
+
+Toggle ALE diagnostics for the active statusline (see
+|mellow-statusline-integration|). If enabled, the number of warnings and
+errors for the active buffer, as reported by ALE, will be displayed.
+
+Enable: [default]
+Disable: `let g:mellow_ale_enabled = 0`
+
+------------------------------------------------------------------------------
+						*g:mellow_fugitive_enabled*
+
+Toggle Fugitive git branch display for the active statusline (see
+|mellow-statusline-integration|). If enabled and Fugitive is installed, the
+git branch of the active buffer will be displayed.
+
+Enable: [default]
+Disable: `let g:mellow_fugitive_enabled = 0`
+
+------------------------------------------------------------------------------
+						*g:mellow_show_bufnr*
+
+Toggle the buffer number prefix in the buffer name display. The buffer number
+is enabled by default to facilitate distinction between buffers of the same
+name in similarly named directories. Consider the buffers
+`vim-mellow/README.md` and `vim-mellow-statusline/README.md` which will both
+be abbreviated to `v/README.md`. However, it can be disabled if you have
+another way to manage these situations.
+
+Enable: [default]
+Disable: `let g:mellow_show_bufnr = 0`
+
+
+==============================================================================
+CUSTOMIZATION					*mellow-statusline-custom*
+
+The following customization variables are supported for the Mellow statusline.
+
+------------------------------------------------------------------------------
+						*g:mellow_mode_map*
+
+Customize the mode indicator, i.e. the first component of the active
+statusline. The variable should be assigned a |Dictionary| that maps
+abbreviated mode |String|s to |Lists| containing a color definition and the
+text to be displayed. For a list of available mode strings, see |mode()|. In
+case of missing definitions, default values will be used. |hl-User1..9| colors
+can be specified using `%N*` syntax, where N is a number from 1 to 9.
+|group-name| colors, e.g. from colorscheme definitions, may also be used with
+the syntax `%#GroupName#`.
+
+Example: >
+	let g:mellow_mode_map = {
+		\  'n':         ['%5*', 'normal' ],
+		\  'i':         ['%6*', 'insert'],
+		\  'R':         ['%8*', 'replace'],
+		\  'v':         ['%7*', 'visual'],
+		\  'V':         ['%7*', 'v-line'],
+		\  '\<C-v>':    ['%7*', 'v-rect'],
+		\  'c':         ['%9*', 'cmdline'],
+		\  'r':         ['%9*', 'cmdline'],
+		\  '!':         ['%9*', 'cmdline'],
+		\  's':         ['%7*', 'select'],
+		\  'S':         ['%7*', 's-line'],
+		\  '\<C-s>':    ['%7*', 's-rect'],
+		\  't':         ['%9*', 'term'],
+		\}
+
+------------------------------------------------------------------------------
+						*g:mellow_custom_parts*
+
+Add custom components to the statusbar. These components will be drawn at the
+right side, before the default diagnostics. The variable should be assigned a
+|List| that contains sub-|Lists| of the format: >
+	[text, color, padding-left, padding-right]
+
+The values for `text` and `color` can be either |String|s or |Funcref|s.
+String values for `text` are printed as static components on the statusline.
+String values for `color` define a static color for the component. For dynamic
+values, you can use a |Funcref| which should return the appropriate string
+when called (i.e. whenever the statusline is re-drawn). The padding values
+should be positive integers.
+
+For color definition syntax, see |g:mellow_mode_map|.
+
+Example (show CoC diagnostics, https://github.com/neoclide/coc.nvim): >
+	let g:mellow_custom_parts = [
+		\ [function('coc#status'), '%2*', 1, 0],
+		\]
+
+
+==============================================================================
+INTEGRATION					*mellow-statusline-integration*
+
+The Mellow statusline can make use of the following plugins by default:
+
+- ALE: <https://github.com/dense-analysis/ale>
+- Fugitive: <https://github.com/tpope/vim-fugitive>
+
+Further integration can be set up using custom diagnostic components added to
+|g:mellow_custom_parts|.
+
+
+vim:tw=78:ts=8:noet:ft=help:norl:

@@ -1,82 +1,69 @@
 # Mellow Statusline
 
+
+### A simple ASCII statusline for (neo)vim
+
+`Plug 'adigitoleo/vim-mellow-statusline', { 'tag': '*' }`
+
+
+## Screenshots
+
+Taken on alacritty with LiberationMono font, using the [mellow] colorscheme:
+
+<p align="center" style"margin: 4%;">
+    <img src="./img/normal_mode.png" width="48%" />
+    <img src="./img/normal_mode_dark.png" width="48%" />
+    <img src="./img/insert_mode.png" width="48%" />
+    <img src="./img/insert_mode_dark.png" width="48%" />
+    <img src="./img/replace_mode.png" width="48%" />
+    <img src="./img/replace_mode_dark.png" width="48%" />
+    <img src="./img/visual_mode.png" width="48%" />
+    <img src="./img/visual_mode_dark.png" width="48%" />
+    <img src="./img/cmdline_mode.png" width="48%" />
+    <img src="./img/cmdline_mode_dark.png" width="48%" />
+    <img src="./img/term_zsh.png" width="48%" />
+    <img src="./img/term_zsh_dark.png" width="48%" />
+</p>
+
+
+## Features
+
+- Shortened buffer path with optional buffer number
+- Fully configurable colors and mode indicators
+- Simple diagnostics included: mixed-indentation and trailing whitespace warnings
+- Integration with [ALE] and [vim-fugitive] to display linter diagnostics and git branch
+- Support for custom diagnostic components
+- Simple, monochromatic and clutter-free inactive buffer statusline
+
+
 ## Installation
 
-If you use a vim plugin manager (recommended), consult the relevant
-documentation. Here are some links to popular plugin managers:
+If you use a vim plugin manager, consult the relevant documentation.
+Here are some links to popular plugin managers:
 - [Pathogen]
 - [NeoBundle]
 - [Vundle]
 - [vim-plug]
 
-For manual installation, download the files from GitHub and put both the
-`autoload` and `plugin` folders inside:
-- `~/.vim/` (vim users)
-- `~/.config/nvim/` (neovim users)
+Alternatively, check [the helpfile] for native package loading instructions.
+
+[the helpfile]: doc/mellow-statusline.txt
+
+**After installing the colorscheme, please read `:help mellow-statusline` for information on usage and available options.**
+
+The statusline should work with any colorscheme,
+but it will require some setup unless the recommended [mellow] colorscheme is used.
 
 
-## Usage
+## Other statusline plugins
 
-After installation, the statusline should work upon the next restart of
-(neo)vim. The statusline uses the User1-9 highlight groups by default (see
-`:help hl-User1..9`). If you want to use the recommended [mellow] colorscheme,
-remember to load it as well. For example, add the following to your config file
-(see `:help vimrc`):
-
-```vim
-set termguicolors
-let g:mellow_user_colors = 1
-colorscheme mellow
-```
-
-Alternatively you can define arbitrary colors for the relevant highlight
-groups (subject to [terminal compatibility]).
-
-
-### Customization
-<!-- vim-markdown-toc GFM -->
-
-* [Miscellaneous](#miscellaneous)
-
-<!-- vim-markdown-toc -->
-
-The colors and text hints for different vim-modes can be configured by
-overwriting the `g:mellow_mode_map` dictionary. The default values can be found
-in `plugin/mellow_statusline.vim` (search for that variable).
-
-The dictionary maps the first letter returned by `mode()` to both a color and a
-text string. See also `:help mode()` and `:help 'statusline'`.
-
-**The `g:MellowDiagnosticFunction` support was removed in a recent commit.**
-Instructions on how to set up custom diagnostic components,
-and more comprehensive documentation overall, will be produced before the v1 release (shortly).
-If you're curious, take a look at the autoload function `mellow_statusline#Part`,
-which will provide the new framework for this.
-
-Here's a vimrc snippet example which adds a clock to the statusbar:
-
-```vim
-let g:mellow_custom_parts = [
-            \ [function('strftime', ['%H:%M']), '%2*', 1, 0],
-            \]
-
-```
-
-## Miscellaneous
-
-After writing the [mellow] colorscheme, I wanted to integrate an [ALE]
-indicator into my statusline. The default statusline is necessarily basic, so I
-had previously used [airline] and later [lightline] for this purpose. Although
-they are both great plugins, I began to feel that they were a bit overkill for
-me. I experimented with writing my own statusline, inspired by various snippets
-and some minimalist statusline plugins like [moonfly-statusline] and
-[vim-statline]. This way, I could define a few optional highlight groups in
-[mellow] and simply use the `%N*` syntax for statusline colors.
+- [airline]
+- [lightline]
+- [moonfly-statusline]
+- [vim-statline]
 
 
 [NOTE]: # ( ------------ PUT ALL EXTERNAL LINKS BELOW THIS LINE ------------ )
-
-[terminal compatibility]: https://gist.github.com/XVilka/8346728
 
 [Pathogen]: https://github.com/tpope/vim-pathogen
 
@@ -94,10 +81,8 @@ and some minimalist statusline plugins like [moonfly-statusline] and
 
 [lightline]: https://github.com/itchyny/lightline.vim
 
-[moonfly-Statusline]: https://github.com/bluz71/vim-moonfly-statusline
+[moonfly-statusline]: https://github.com/bluz71/vim-moonfly-statusline
 
 [vim-statline]: https://github.com/millermedeiros/vim-statline
-
-[CoC]: https://github.com/neoclide/coc.nvim
 
 [vim-fugitive]: https://github.com/tpope/vim-fugitive
