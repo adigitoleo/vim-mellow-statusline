@@ -11,18 +11,18 @@
 Taken on alacritty with LiberationMono font, using the [mellow] colorscheme:
 
 <p align="center" style"margin: 4%;">
-    <img src="./img/normal_mode.png" width="48%" />
-    <img src="./img/normal_mode_dark.png" width="48%" />
-    <img src="./img/insert_mode.png" width="48%" />
-    <img src="./img/insert_mode_dark.png" width="48%" />
-    <img src="./img/replace_mode.png" width="48%" />
-    <img src="./img/replace_mode_dark.png" width="48%" />
-    <img src="./img/visual_mode.png" width="48%" />
-    <img src="./img/visual_mode_dark.png" width="48%" />
-    <img src="./img/cmdline_mode.png" width="48%" />
-    <img src="./img/cmdline_mode_dark.png" width="48%" />
-    <img src="./img/term_zsh.png" width="48%" />
-    <img src="./img/term_zsh_dark.png" width="48%" />
+    <img src="./img/normal_mode.png" width="75%" />
+    <img src="./img/normal_mode_dark.png" width="75%" />
+    <img src="./img/insert_mode.png" width="75%" />
+    <img src="./img/insert_mode_dark.png" width="75%" />
+    <img src="./img/replace_mode.png" width="75%" />
+    <img src="./img/replace_mode_dark.png" width="75%" />
+    <img src="./img/visual_mode.png" width="75%" />
+    <img src="./img/visual_mode_dark.png" width="75%" />
+    <img src="./img/cmdline_mode.png" width="75%" />
+    <img src="./img/cmdline_mode_dark.png" width="75%" />
+    <img src="./img/term_zsh.png" width="75%" />
+    <img src="./img/term_zsh_dark.png" width="75%" />
 </p>
 
 
