@@ -1,4 +1,4 @@
-mellow-statusline	A simple ASCII statusline for (neo)vim
+*mellow-statusline*	A simple ASCII statusline for (neo)vim
 		                 __ __
 		   _  _    ___  /  /  /______    ___
 		  / \/ \  / _ \/  /  / _  \  \/\/  /
