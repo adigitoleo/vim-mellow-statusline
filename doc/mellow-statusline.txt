@@ -167,17 +167,16 @@ right side, before the default diagnostics. The variable should be assigned a
 	[text, color, padding-left, padding-right]
 
 The values for `text` and `color` can be either |String|s or |Funcref|s.
-String values for `text` are printed as static components on the statusline.
-String values for `color` define a static color for the component. For dynamic
-values, you can use a |Funcref| which should return the appropriate string
-when called (i.e. whenever the statusline is re-drawn). The padding values
+String values for `text` and `color` define static text and color
+respectively. Funcref values for `text` and `color` allow dynamic component
+definitions, and must return String values when called. The padding values
 should be positive integers.
 
 For color definition syntax, see |g:mellow_mode_map|.
 
 Example (show CoC diagnostics, https://github.com/neoclide/coc.nvim): >
 	let g:mellow_custom_parts = [
-		\ [function('coc#status'), '%2*', 1, 0],
+		\ [function('coc#status'), '%1*', 1, 0],
 		\]
 
 
