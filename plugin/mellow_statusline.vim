@@ -5,7 +5,7 @@
 " /__/\/\__\___/__/__/\____/  \_/\_/ statusline
 
 " Maintainer: adigitoleo <vim-mellow-statusline@adigitoleo.dissimulo.com>
-" Version: 1.0.0
+" Version: 1.0.1
 " Description: A minimal statusline for (neo)vim, best served with the mellow colorscheme.
 " Homepage: https://github.com/adigitoleo/vim-mellow-statusline
 
@@ -32,13 +32,13 @@ let s:mode_map = {
             \  'R':         ['%8*', 'replace'],
             \  'v':         ['%7*', 'visual'],
             \  'V':         ['%7*', 'v-line'],
-            \  '\<C-v>':    ['%7*', 'v-rect'],
+            \  '':        ['%7*', 'v-rect'],
             \  'c':         ['%9*', 'cmdline'],
             \  'r':         ['%9*', 'cmdline'],
             \  '!':         ['%9*', 'cmdline'],
             \  's':         ['%7*', 'select'],
             \  'S':         ['%7*', 's-line'],
-            \  '\<C-s>':    ['%7*', 's-rect'],
+            \  '':        ['%7*', 's-rect'],
             \  't':         ['%9*', 'term'],
             \}
 
