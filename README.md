@@ -45,11 +45,7 @@ Here are some links to popular plugin managers:
 - [Vundle]
 - [vim-plug]
 
-Alternatively, check [the helpfile] for native package loading instructions.
-
-[the helpfile]: doc/mellow-statusline.txt
-
-**After installing the colorscheme, please read `:help mellow-statusline` for information on usage and available options.**
+**After installing the plugin, please read `:help mellow-statusline` for information on usage and available options.**
 
 The statusline should work with any colorscheme,
 but it will require some setup unless the recommended [mellow] colorscheme is used.
