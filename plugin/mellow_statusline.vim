@@ -55,7 +55,7 @@ function! MellowStatusline(is_active) abort
         let l:statusline .= mellow_statusline#File('', 1)
         let l:statusline .= mellow_statusline#Flags ('%1*', 1)
         if s:fugitive_enabled
-            let l:statusline .= mellow_statusline#FugitiveBranch('%4*', 1)
+            let l:statusline .= mellow_statusline#FugitiveBranch('%3*', 1)
         endif
         let l:statusline .= '%='
         let l:statusline .= ' %l,%c%V'
