@@ -52,7 +52,7 @@ function! mellow_statusline#File(color, lpad) abort
         if has("nvim")
             let l:file = bufnr() .. ':' .. l:file
         else
-            let l:file = bufnr() . ':' . l:file
+            let l:file = bufnr('%') . ':' . l:file
         endif
     endif
     return mellow_statusline#Part(l:file, a:color, a:lpad)
