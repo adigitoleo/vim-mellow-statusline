@@ -69,7 +69,11 @@ function! MellowStatusline(is_active) abort
         endif
         let l:statusline .= mellow_statusline#WhitespaceCheck('%1*', 1)
         " File type (and encoding if not utf-8).
-        let l:statusline .= '%( %{&fenc !=# "utf-8" && &ft ? &fenc .. " | " .. &ft : &ft}%)'
+        if has("nvim")
+            let l:statusline .= '%( %{&fenc !=# "utf-8" && &ft ? &fenc .. " | " .. &ft : &ft}%)'
+        else
+            let l:statusline .= '%( %{&fenc !=# "utf-8" && &ft ? &fenc . " | " . &ft : &ft}%)'
+        endif
         let l:statusline .= ' '
     else
         " Monochromatic subset of the above.
@@ -77,7 +81,11 @@ function! MellowStatusline(is_active) abort
         let l:statusline .= ' %{mellow_statusline#Flags("", 0)}'
         let l:statusline .= '%='
         let l:statusline .= '%l,%c%V'
-        let l:statusline .= '%( %{&fenc !=# "utf-8" && &ft ? &fenc .. " | " .. &ft : &ft}%)'
+        if has("nvim")
+            let l:statusline .= '%( %{&fenc !=# "utf-8" && &ft ? &fenc .. " | " .. &ft : &ft}%)'
+        else
+            let l:statusline .= '%( %{&fenc !=# "utf-8" && &ft ? &fenc . " | " . &ft : &ft}%)'
+        endif
         let l:statusline .= ' '
     endif
 
