@@ -25,7 +25,7 @@ endif
 
 let s:fugitive_enabled = get(g:, 'mellow_fugitive_enabled', v:true)
 let s:ale_enabled = get(g:, 'mellow_ale_enabled', v:true)
-let s:tabline_enabled = get(g:, 'mellow_tabline', v:true)
+let s:tabline_enabled = get(g:, 'mellow_tabline', v:false)
 let s:mode_map = {
             \  'n':         ['%5*', s:normal ],
             \  'i':         ['%6*', 'insert'],
@@ -98,16 +98,17 @@ function! MellowTabline() abort
     let l:tabline = ''
 
     for l:tabpage in range(1, tabpagenr('$'))
-        if l:tabpage ==# tabpagenr()
-            let l:tabline .= '%4*[' . l:tabpage . ']%* '
-            let l:tabline .= mellow_statusline#File('', 1)
-            let l:tabline .= mellow_statusline#Flags ('%1*', 1)
+        if l:tabpage  ==# tabpagenr()
+            let l:tabline .= '$(%4*[' . l:tabpage . ']%* )%'
+            let l:tabline .= '%#TabLineSel#'
+            let l:tabline .= mellow_statusline#TabFile('%1*', l:tabpage)
         else
-            let l:tabline .= '[' . l:tabpage . '] '
-            let l:tabline .= ' %{mellow_statusline#File("", 0)}'
-            let l:tabline .= ' %{mellow_statusline#Flags("", 0)}'
+            let l:tabline .= '%([' . l:tabpage . '] %)'
+            let l:tabline .= '%#TabLine#'
+            let l:tabline .= mellow_statusline#TabFile('%1*', l:tabpage)
         endif
     endfor
+    let l:tabline .= '%#TabLineFill#'
 
     return l:tabline
 endfunction

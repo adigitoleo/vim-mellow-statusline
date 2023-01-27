@@ -128,9 +128,10 @@ Disable: `let g:mellow_show_bufnr = 0`
 
 Toggle the mellow tabline, which sets the value of |'tabline'| to a subset of
 the statusline components and additionally displays the value of |tabpagenr()|.
+This feature is experimental.
 
-Enable: [default]
-Disable: `let g:mellow_tabline = 0`
+Enable: `let g:mellow_tabline = 1`
+Disable: [default]
 
 
 ==============================================================================

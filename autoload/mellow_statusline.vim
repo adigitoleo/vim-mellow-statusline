@@ -136,3 +136,22 @@ function! mellow_statusline#WhitespaceCheck(color, lpad) abort
     endif
     return mellow_statusline#Part(b:mellow_whitespace_warning, a:color, a:lpad)
 endfunction
+
+
+function! mellow_statusline#TabFile(flagcolor, tabpagenr) abort
+    let l:tab = ''
+    let l:buflist = tabpagebuflist(a:tabpagenr)
+    for l:buf in l:buflist
+        if getbufvar(l:buf, '&modifiable') && getbufvar(l:buf, '&modified')
+            let l:tab .= a:flagcolor . ' + ' . '%*'
+        endif
+        if l:buf ==# tabpagewinnr(a:tabpagenr)
+            l:name = getbufvar(l:buf, '&buftype') !=# ''
+                        \ ? fnamemodify(bufname(l:buf), ':t')
+                        \ : fnamemodify(bufname(l:buf), ':~:.')
+            l:tab .= l:name
+        endif
+    endfor
+
+    return l:tab
+endfunction
