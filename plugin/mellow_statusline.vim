@@ -94,18 +94,20 @@ function! MellowStatusline(is_active) abort
 endfunction
 
 
-function! MellowTabline(is_active) abort
+function! MellowTabline() abort
     let l:tabline = ''
 
-    if a:is_active
-        let l:tabline .= '%4*[' . tabpagenr() . ']%* '
-        let l:tabline .= mellow_statusline#File('', 1)
-        let l:tabline .= mellow_statusline#Flags ('%1*', 1)
-    else
-        let l:tabline .= '[' . tabpagenr() . '] '
-        let l:tabline .= ' %{mellow_statusline#File("", 0)}'
-        let l:tabline .= ' %{mellow_statusline#Flags("", 0)}'
-    endif
+    for l:tabpage in range(1, tabpagenr('$'))
+        if l:tabpage ==# tabpagenr()
+            let l:tabline .= '%4*[' . l:tabpage . ']%* '
+            let l:tabline .= mellow_statusline#File('', 1)
+            let l:tabline .= mellow_statusline#Flags ('%1*', 1)
+        else
+            let l:tabline .= '[' . l:tabpage . '] '
+            let l:tabline .= ' %{mellow_statusline#File("", 0)}'
+            let l:tabline .= ' %{mellow_statusline#Flags("", 0)}'
+        endif
+    endfor
 
     return l:tabline
 endfunction
@@ -136,7 +138,6 @@ if s:tabline_enabled
     augroup mellow_tabline
         " Autocommands for setting the tabline.
         autocmd!
-        autocmd TabEnter,TabNewEntered * set tabline=%!MellowTabline(v:true)
-        autocmd TabLeave * set tabline=%!MellowTabline(v:false)
+        autocmd TabEnter,TabNewEntered,TabLeave * set tabline=%!MellowTabline()
     augroup END
 endif
