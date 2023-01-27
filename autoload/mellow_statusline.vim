@@ -16,8 +16,8 @@ function! mellow_statusline#Part(text, color, ...) abort
     endif
 
     if strlen(l:text_raw)
-        if has("nvim")
-            let l:text = l:pad_left .. l:text_raw .. l:pad_right
+        if has('nvim')
+            let l:text = l:pad_left . l:text_raw . l:pad_right
         else
             let l:text = l:pad_left . l:text_raw . l:pad_right
         endif
@@ -32,8 +32,8 @@ function! mellow_statusline#Part(text, color, ...) abort
     else
         throw 'mellow: wrong argument type for a:color'
     endif
-    if has("nvim")
-        return strlen(l:color) ? l:color .. l:text .. '%*' : l:text
+    if has('nvim')
+        return strlen(l:color) ? l:color . l:text . '%*' : l:text
     else
         return strlen(l:color) ? l:color . l:text . '%*' : l:text
     endif
@@ -47,10 +47,10 @@ endfunction
 
 
 function! mellow_statusline#File(color, lpad) abort
-    let l:file = &buftype != '' ? expand('%:t') : pathshorten(expand('%:~:.'))
+    let l:file = &buftype !=# '' ? expand('%:t') : pathshorten(expand('%:~:.'))
     if get(g:, 'mellow_show_bufnr', 1)
-        if has("nvim")
-            let l:file = bufnr() .. ':' .. l:file
+        if has('nvim')
+            let l:file = bufnr() . ':' . l:file
         else
             let l:file = bufnr('%') . ':' . l:file
         endif
@@ -125,8 +125,8 @@ function! mellow_statusline#WhitespaceCheck(color, lpad) abort
             endif
 
             if search('\s\+$', 'nw') > 0
-                if has("nvim")
-                    let l:warning = strlen(l:warning) ? l:warning .. ',trails' : 'trails'
+                if has('nvim')
+                    let l:warning = strlen(l:warning) ? l:warning . ',trails' : 'trails'
                 else
                     let l:warning = strlen(l:warning) ? l:warning . ',trails' : 'trails'
                 endif

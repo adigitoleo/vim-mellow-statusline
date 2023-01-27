@@ -69,7 +69,7 @@ function! MellowStatusline(is_active) abort
         endif
         let l:statusline .= mellow_statusline#WhitespaceCheck('%1*', 1)
         " File type (and encoding if not utf-8).
-        if has("nvim")
+        if has('nvim')
             let l:statusline .= '%( %{&fenc !=# "utf-8" && &ft ? &fenc .. " | " .. &ft : &ft}%)'
         else
             let l:statusline .= '%( %{&fenc !=# "utf-8" && &ft ? &fenc . " | " . &ft : &ft}%)'
@@ -81,7 +81,7 @@ function! MellowStatusline(is_active) abort
         let l:statusline .= ' %{mellow_statusline#Flags("", 0)}'
         let l:statusline .= '%='
         let l:statusline .= '%l,%c%V'
-        if has("nvim")
+        if has('nvim')
             let l:statusline .= '%( %{&fenc !=# "utf-8" && &ft ? &fenc .. " | " .. &ft : &ft}%)'
         else
             let l:statusline .= '%( %{&fenc !=# "utf-8" && &ft ? &fenc . " | " . &ft : &ft}%)'
