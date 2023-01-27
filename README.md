@@ -34,7 +34,7 @@ Taken on alacritty with LiberationMono font, using the [mellow] colorscheme:
 - Integration with [ALE] and [vim-fugitive] to display linter diagnostics and git branch
 - Support for custom diagnostic components (see `:h g:mellow_custom_parts`)
 - Simple, monochromatic and clutter-free inactive buffer statusline
-- Optional tabline with matching colors, showing the tabpage number
+- Optional tabline with shortened buffer name and tabpage number
 
 
 ## Installation

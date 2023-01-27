@@ -25,7 +25,7 @@ endif
 
 let s:fugitive_enabled = get(g:, 'mellow_fugitive_enabled', v:true)
 let s:ale_enabled = get(g:, 'mellow_ale_enabled', v:true)
-let s:tabline_enabled = get(g:, 'mellow_tabline', v:false)
+let s:tabline_enabled = get(g:, 'mellow_tabline', v:true)
 let s:mode_map = {
             \  'n':         ['%5*', s:normal ],
             \  'i':         ['%6*', 'insert'],
@@ -99,19 +99,28 @@ function! MellowTabline() abort
 
     for l:tabpage in range(1, tabpagenr('$'))
         if l:tabpage  ==# tabpagenr()
-            let l:tabline .= '$(%4*[' . l:tabpage . ']%* )%'
-            let l:tabline .= '%#TabLineSel#'
-            let l:tabline .= mellow_statusline#TabFile('%1*', l:tabpage)
+            let l:tabline .= '%4*[' . l:tabpage . '] %*'
+            let l:tabline .= '%' . l:tabpage . 'T'
+            let l:tabline .= mellow_statusline#TabFile('%1*', '%#TabLineSel#', l:tabpage)
         else
-            let l:tabline .= '%([' . l:tabpage . '] %)'
-            let l:tabline .= '%#TabLine#'
-            let l:tabline .= mellow_statusline#TabFile('%1*', l:tabpage)
+            let l:tabline .= '%#TabLine#[' . l:tabpage . '] '
+            let l:tabline .= '%' . l:tabpage . 'T'
+            let l:tabline .= mellow_statusline#TabFile('', '%#TabLine#', l:tabpage)
         endif
     endfor
-    let l:tabline .= '%#TabLineFill#'
+    let l:tabline .= '%#TabLineFill#%T'
+
+    if tabpagenr('$') > 1
+        let l:tabline .= '%=%#TabLine#%999X[X]'
+    endif
 
     return l:tabline
 endfunction
+
+
+if s:tabline_enabled
+    set tabline=%!MellowTabline()
+endif
 
 
 function! s:UpdateInactiveStatuslines() abort
@@ -133,12 +142,3 @@ augroup mellow_statusline
     autocmd WinEnter,BufWinEnter * setlocal statusline=%!MellowStatusline(v:true)
     autocmd WinLeave * setlocal statusline=%!MellowStatusline(v:false)
 augroup END
-
-
-if s:tabline_enabled
-    augroup mellow_tabline
-        " Autocommands for setting the tabline.
-        autocmd!
-        autocmd TabEnter,TabNewEntered,TabLeave * set tabline=%!MellowTabline()
-    augroup END
-endif

@@ -126,12 +126,12 @@ Disable: `let g:mellow_show_bufnr = 0`
 ------------------------------------------------------------------------------
 						*g:mellow_tabline*
 
-Toggle the mellow tabline, which sets the value of |'tabline'| to a subset of
-the statusline components and additionally displays the value of |tabpagenr()|.
-This feature is experimental.
+Toggle the mellow tabline, which sets the value of |'tabline'| to display the
+shortened name of the active buffer for each tab as well as the value of
+|tabpagenr()|. The tab page number uses the `User4` color.
 
-Enable: `let g:mellow_tabline = 1`
-Disable: [default]
+Enable: [default]
+Disable: `let g:mellow_tabline = 0`
 
 
 ==============================================================================

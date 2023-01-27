@@ -138,18 +138,18 @@ function! mellow_statusline#WhitespaceCheck(color, lpad) abort
 endfunction
 
 
-function! mellow_statusline#TabFile(flagcolor, tabpagenr) abort
+function! mellow_statusline#TabFile(flagcolor, namecolor, tabpagenr) abort
     let l:tab = ''
     let l:buflist = tabpagebuflist(a:tabpagenr)
     for l:buf in l:buflist
         if getbufvar(l:buf, '&modifiable') && getbufvar(l:buf, '&modified')
-            let l:tab .= a:flagcolor . ' + ' . '%*'
+            let l:tab .= a:flagcolor . '+ %*'
         endif
-        if l:buf ==# tabpagewinnr(a:tabpagenr)
-            l:name = getbufvar(l:buf, '&buftype') !=# ''
+        if l:buf ==# l:buflist[tabpagewinnr(a:tabpagenr) - 1]
+            let l:name = getbufvar(l:buf, '&buftype') !=# ''
                         \ ? fnamemodify(bufname(l:buf), ':t')
                         \ : fnamemodify(bufname(l:buf), ':~:.')
-            l:tab .= l:name
+            let l:tab .= a:namecolor . l:name . ' %*'
         endif
     endfor
 
