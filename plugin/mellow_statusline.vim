@@ -25,6 +25,7 @@ endif
 
 let s:fugitive_enabled = get(g:, 'mellow_fugitive_enabled', v:true)
 let s:ale_enabled = get(g:, 'mellow_ale_enabled', v:true)
+let s:tabline_enabled = get(g:, 'mellow_tabline', v:true)
 let s:mode_map = {
             \  'n':         ['%5*', s:normal ],
             \  'i':         ['%6*', 'insert'],
@@ -93,6 +94,23 @@ function! MellowStatusline(is_active) abort
 endfunction
 
 
+function! MellowTabline(is_active) abort
+    let l:tabline = ''
+
+    if a:is_active
+        let l:tabline .= '%4*[' . tabpagenr() . ']%* '
+        let l:tabline .= mellow_statusline#File('', 1)
+        let l:tabline .= mellow_statusline#Flags ('%1*', 1)
+    else
+        let l:tabline .= '[' . tabpagenr() . '] '
+        let l:tabline .= ' %{mellow_statusline#File("", 0)}'
+        let l:tabline .= ' %{mellow_statusline#Flags("", 0)}'
+    endif
+
+    return l:tabline
+endfunction
+
+
 function! s:UpdateInactiveStatuslines() abort
 " From <https://github.com/bluz71/vim-moonfly-statusline>, MIT license.
 " Iterate over windows and set inactive statuslines, required at startup.
@@ -112,3 +130,13 @@ augroup mellow_statusline
     autocmd WinEnter,BufWinEnter * setlocal statusline=%!MellowStatusline(v:true)
     autocmd WinLeave * setlocal statusline=%!MellowStatusline(v:false)
 augroup END
+
+
+if s:tabline_enabled
+    augroup mellow_tabline
+        " Autocommands for setting the tabline.
+        autocmd!
+        autocmd TabEnter,TabNewEntered * set tabline=%!MellowTabline(v:true)
+        autocmd TabLeave * set tabline=%!MellowTabline(v:false)
+    augroup END
+endif

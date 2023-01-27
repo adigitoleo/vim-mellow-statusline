@@ -123,6 +123,15 @@ another way to manage these situations.
 Enable: [default]
 Disable: `let g:mellow_show_bufnr = 0`
 
+------------------------------------------------------------------------------
+						*g:mellow_tabline*
+
+Toggle the mellow tabline, which sets the value of |'tabline'| to a subset of
+the statusline components and additionally displays the value of |tabpagenr()|.
+
+Enable: [default]
+Disable: `let g:mellow_tabline = 0`
+
 
 ==============================================================================
 CUSTOMIZATION					*mellow-statusline-custom*

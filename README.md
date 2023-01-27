@@ -32,8 +32,9 @@ Taken on alacritty with LiberationMono font, using the [mellow] colorscheme:
 - Fully configurable colors and mode indicators
 - Simple diagnostics included: mixed-indentation and trailing whitespace warnings
 - Integration with [ALE] and [vim-fugitive] to display linter diagnostics and git branch
-- Support for custom diagnostic components
+- Support for custom diagnostic components (see `:h g:mellow_custom_parts`)
 - Simple, monochromatic and clutter-free inactive buffer statusline
+- Optional tabline with matching colors, showing the tabpage number
 
 
 ## Installation
