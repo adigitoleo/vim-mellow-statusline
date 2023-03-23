@@ -90,7 +90,11 @@ function! mellow_statusline#ALE(color, lpad) abort
     let l:ale_msg = ''
     if exists('g:ale_enabled') && g:ale_enabled
         if !exists('b:ale_enabled') || b:ale_enabled
-            let l:bufnr = bufnr()
+            if has('nvim')
+                let l:bufnr = bufnr()
+            else
+                let l:bufnr = bufnr("%")
+            endif
             if ale#engine#IsCheckingBuffer(l:bufnr)
                 let l:ale_msg = '...'
             else
