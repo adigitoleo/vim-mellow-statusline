@@ -100,8 +100,7 @@ function! MellowTabline() abort
 
     for l:tabpage in range(1, tabpagenr('$'))
         if l:tabpage  ==# tabpagenr()
-            let l:tabline .= '%4*[' . l:tabpage . '] %*'
-            let l:tabline .= '%' . l:tabpage . 'T'
+            let l:tabline .= '%4*[%' . l:tabpage . 'T' . l:tabpage . '] %*'
             let l:tabline .= mellow_statusline#TabFile('%1*', '%#TabLineSel#', l:tabpage)
         else
             let l:tabline .= '%#TabLine#[' . l:tabpage . '] '
