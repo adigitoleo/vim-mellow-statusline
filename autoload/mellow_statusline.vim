@@ -84,10 +84,13 @@ function! mellow_statusline#GitHead(color, lpad) abort
         let l:githead = substitute(l:githead, '[Git(', '', '')
         let l:githead = substitute(l:githead, ')]', '', '')
     endif
-    if exists('b:gitsigns_status')
+    if exists('b:gitsigns_status') && len(b:gitsigns_status) > 0
         let l:githead .= ' ' . b:gitsigns_status
     endif
-    return mellow_statusline#Part('[' . l:githead . ']', a:color, a:lpad)
+    if len(l:githead) > 0
+        return mellow_statusline#Part('[' . l:githead . ']', a:color, a:lpad)
+    endif
+    return ''
 endfunction
 
 
@@ -99,7 +102,7 @@ function! mellow_statusline#ALE(color, lpad) abort
             if has('nvim')
                 let l:bufnr = bufnr()
             else
-                let l:bufnr = bufnr("%")
+                let l:bufnr = bufnr('%')
             endif
             if ale#engine#IsCheckingBuffer(l:bufnr)
                 let l:ale_msg = '...'
