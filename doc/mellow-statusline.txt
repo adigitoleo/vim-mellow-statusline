@@ -23,9 +23,9 @@ INTRODUCTION					*mellow-statusline-intro*
 
 This plugin provides a statusline for vim (version 8+) and neovim (version
 0.4+). The Mellow statusline is intentionally simple, using widely available
-ASCII characters. Integration with ALE and Fugitive is available by default,
-and custom components can be added for displaying additional diagnostics. See
-|mellow-statusline-integration| for more.
+ASCII characters. Integration with popular Git and linter plugins is available
+by default, and custom components can be added for displaying additional
+diagnostics. See |mellow-statusline-integration| for more.
 
 The recommended Mellow colorscheme (https://github.com/adigitoleo/vim-mellow)
 optionally provides |hl-User1..9| colors (via |g:mellow_user_colors|), which
@@ -93,9 +93,9 @@ The following configuration options are supported for the Mellow statusline.
 ------------------------------------------------------------------------------
 						*g:mellow_ale_enabled*
 
-Toggle ALE diagnostics for the active statusline (see
-|mellow-statusline-integration|). If enabled, the number of warnings and
-errors for the active buffer, as reported by ALE, will be displayed.
+Toggle ALE diagnostics for the active statusline. If enabled, the number of
+warnings and errors for the active buffer, as reported by ALE, will be
+displayed.
 
 Enable: [default]
 Disable: `let g:mellow_ale_enabled = 0`
@@ -103,12 +103,23 @@ Disable: `let g:mellow_ale_enabled = 0`
 ------------------------------------------------------------------------------
 						*g:mellow_fugitive_enabled*
 
-Toggle Fugitive git branch display for the active statusline (see
-|mellow-statusline-integration|). If enabled and Fugitive is installed, the
-git branch of the active buffer will be displayed.
+Toggle Fugitive git branch display for the active statusline. If enabled and
+Fugitive is installed, the git branch of the active buffer will be displayed.
+See also |g:mellow_gitsigns_enabled|.
 
 Enable: [default]
 Disable: `let g:mellow_fugitive_enabled = 0`
+
+------------------------------------------------------------------------------
+						g:mellow_gitsigns_enabled
+
+Toggle gitsigns.nvim git file status display for the active statusline. This
+shows the type of change (added, removed, changed) and the number of lines
+affected. If |g:mellow_fugitive_enabled| is disabled, or if Fugitive is not
+installed, then gitsigns.nvim will also be used to query the git HEAD name.
+
+Enable: [default]
+Disable: `let g:mellow_gitsigns_enabled = 0`
 
 ------------------------------------------------------------------------------
 						*g:mellow_show_bufnr*
@@ -197,6 +208,7 @@ The Mellow statusline can make use of the following plugins by default:
 
 - ALE: <https://github.com/dense-analysis/ale>
 - Fugitive: <https://github.com/tpope/vim-fugitive>
+- gitsigns.nvim: <https://github.com/lewis6991/gitsigns.nvim>
 
 Further integration can be set up using custom diagnostic components added to
 |g:mellow_custom_parts|.

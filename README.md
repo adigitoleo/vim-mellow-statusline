@@ -32,6 +32,8 @@ Taken on alacritty with LiberationMono font, using the [mellow] colorscheme:
 - Fully configurable colors and mode indicators
 - Simple diagnostics included: mixed-indentation and trailing whitespace warnings
 - Integration with [ALE] and [vim-fugitive] to display linter diagnostics and git branch
+- Integration with [gitsigns.nvim] to display git file status (also displays
+  git HEAD if Fugitive is not available)
 - Support for custom diagnostic components (see `:h g:mellow_custom_parts`)
 - Simple, monochromatic and clutter-free inactive buffer statusline
 - Optional tabline with shortened buffer name and tabpage number
@@ -83,3 +85,5 @@ but it will require some setup unless the recommended [mellow] colorscheme is us
 [vim-statline]: https://github.com/millermedeiros/vim-statline
 
 [vim-fugitive]: https://github.com/tpope/vim-fugitive
+
+[gitsigns.nvim]: https://github.com/lewis6991/gitsigns.nvim

@@ -73,15 +73,21 @@ function! mellow_statusline#Flags(color, lpad) abort
 endfunction
 
 
-function! mellow_statusline#FugitiveBranch(color, lpad) abort
+function! mellow_statusline#GitHead(color, lpad) abort
     " Parse git branch name from Fugitive <https://github.com/tpope/vim-fugitive>.
-    let l:gitbranch = ''
+    " Alternatively, get HEAD name from b:gitsigns_branch,
+    " <https://github.com/lewis6991/gitsigns.nvim>.
+    " Either way, get git file status from b:gitsigns_status if enabled.
+    let l:githead = get(b:, 'gitsigns_head', '')
     if exists('g:loaded_fugitive')
-        let l:gitbranch = fugitive#statusline()
-        let l:gitbranch = substitute(l:gitbranch, '[Git(', '[', '')
-        let l:gitbranch = substitute(l:gitbranch, ')]', ']', '')
+        let l:githead = fugitive#statusline()
+        let l:githead = substitute(l:githead, '[Git(', '', '')
+        let l:githead = substitute(l:githead, ')]', '', '')
     endif
-    return mellow_statusline#Part(l:gitbranch, a:color, a:lpad)
+    if exists('b:gitsigns_status')
+        let l:githead .= ' ' . b:gitsigns_status
+    endif
+    return mellow_statusline#Part('[' . l:githead . ']', a:color, a:lpad)
 endfunction
 
 

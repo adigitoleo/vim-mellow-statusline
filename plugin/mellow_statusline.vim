@@ -26,6 +26,7 @@ endif
 let s:fugitive_enabled = get(g:, 'mellow_fugitive_enabled', v:true)
 let s:ale_enabled = get(g:, 'mellow_ale_enabled', v:true)
 let s:tabline_enabled = get(g:, 'mellow_tabline', v:true)
+let s:gitsigns_enabled = get(g:, 'mellow_gitsigns_enabled', v:true)
 let s:mode_map = {
             \  'n':         ['%5*', s:normal ],
             \  'i':         ['%6*', 'insert'],
@@ -54,8 +55,8 @@ function! MellowStatusline(is_active) abort
         let l:statusline .= mellow_statusline#Mode(s:mode_map, 1, 1)
         let l:statusline .= mellow_statusline#File('', 1)
         let l:statusline .= mellow_statusline#Flags ('%1*', 1)
-        if s:fugitive_enabled
-            let l:statusline .= mellow_statusline#FugitiveBranch('%3*', 1)
+        if s:fugitive_enabled || s:gitsigns_enabled
+            let l:statusline .= mellow_statusline#GitHead('%3*', 1)
         endif
         let l:statusline .= '%='
         let l:statusline .= ' %l,%c%V'
