@@ -71,15 +71,16 @@ are abbreviated to reduce clutter. See also |g:mellow_show_bufnr|.
 
 Active buffer flags use the `User1` color.
 
-The git branch indicator, available if Fugitive is installed, uses the `User4`
-color. See also |g:mellow_fugitive_enabled|.
+The Git HEAD indicator, available if Fugitive or gitsigns is installed, uses
+the `User4` color. See also |g:mellow_git_enabled|.
 
 Active buffer line and column indicators use the |hl-StatusLine| color.
 
 Diagnostics can be displayed using multiple components. By default, Mellow
 checks for mixed indentation, suspicious |'expandtab'| settings and trailing
-whitespace. Mellow also integrates with ALE to show the number of warnings (W)
-and erorrs (E) using the `User1` color. See also |g:mellow_ale_enabled|.
+whitespace. Mellow also integrates with either ALE or the builtin NeoVim 0.8+
+diagnostics API to show the number of warnings (W) and erorrs (E) using the
+`User1` color. See also |g:mellow_diagnostics_enabled|.
 
 At the far right, the |filetype| is shown using the |hl-StatusLine| color. The
 |'fileencoding'| is also shown if it is not the standard UTF-8 encoding.
@@ -91,35 +92,26 @@ CONFIGURATION					*mellow-statusline-config*
 The following configuration options are supported for the Mellow statusline.
 
 ------------------------------------------------------------------------------
-						*g:mellow_ale_enabled*
+						*g:mellow_diagnostics_enabled*
 
-Toggle ALE diagnostics for the active statusline. If enabled, the number of
-warnings and errors for the active buffer, as reported by ALE, will be
-displayed.
+Toggle third-party diagnostics for the active statusline. If enabled, the
+number of warnings and errors for the active buffer is queried from ALE or
+from the NeoVim 0.8+ builtin |diagnostic-api|, in that order of priority.
+These are displayed on the right side of the statusbar.
 
 Enable: [default]
-Disable: `let g:mellow_ale_enabled = 0`
+Disable: `let g:mellow_diagnostics_enabled= 0`
 
 ------------------------------------------------------------------------------
-						*g:mellow_fugitive_enabled*
+						*g:mellow_git_enabled*
 
-Toggle Fugitive git branch display for the active statusline. If enabled and
-Fugitive is installed, the git branch of the active buffer will be displayed.
-See also |g:mellow_gitsigns_enabled|.
-
-Enable: [default]
-Disable: `let g:mellow_fugitive_enabled = 0`
-
-------------------------------------------------------------------------------
-						g:mellow_gitsigns_enabled
-
-Toggle gitsigns.nvim git file status display for the active statusline. This
-shows the type of change (added, removed, changed) and the number of lines
-affected. If |g:mellow_fugitive_enabled| is disabled, or if Fugitive is not
-installed, then gitsigns.nvim will also be used to query the git HEAD name.
+Toggle Git HEAD display for the active statusline. If enabled and either
+Fugitive or gitsigns is installed, the Git HEAD of the active buffer will be
+displayed. In addition, gitsigns provides information about the number of
+added/deleted/changed lines.
 
 Enable: [default]
-Disable: `let g:mellow_gitsigns_enabled = 0`
+Disable: `let g:mellow_git_enabled = 0`
 
 ------------------------------------------------------------------------------
 						*g:mellow_show_bufnr*
@@ -209,6 +201,7 @@ The Mellow statusline can make use of the following plugins by default:
 - ALE: <https://github.com/dense-analysis/ale>
 - Fugitive: <https://github.com/tpope/vim-fugitive>
 - gitsigns.nvim: <https://github.com/lewis6991/gitsigns.nvim>
+- nvim-lspconfig (via the builtin NeoVim diagnostics API): <https://github.com/neovim/nvim-lspconfig>
 
 Further integration can be set up using custom diagnostic components added to
 |g:mellow_custom_parts|.

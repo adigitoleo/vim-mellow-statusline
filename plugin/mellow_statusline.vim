@@ -23,10 +23,9 @@ else
     let s:normal = 'vim'
 endif
 
-let s:fugitive_enabled = get(g:, 'mellow_fugitive_enabled', v:true)
-let s:ale_enabled = get(g:, 'mellow_ale_enabled', v:true)
+let s:git_enabled = get(g:, 'mellow_git_enabled', v:true)
+let s:diagnostics_enabled = get(g:, 'mellow_diagnostics_enabled', v:true)
 let s:tabline_enabled = get(g:, 'mellow_tabline', v:true)
-let s:gitsigns_enabled = get(g:, 'mellow_gitsigns_enabled', v:true)
 let s:mode_map = {
             \  'n':         ['%5*', s:normal ],
             \  'i':         ['%6*', 'insert'],
@@ -55,7 +54,7 @@ function! MellowStatusline(is_active) abort
         let l:statusline .= mellow_statusline#Mode(s:mode_map, 1, 1)
         let l:statusline .= mellow_statusline#File('', 1)
         let l:statusline .= mellow_statusline#Flags ('%1*', 1)
-        if s:fugitive_enabled || s:gitsigns_enabled
+        if s:git_enabled
             let l:statusline .= mellow_statusline#GitHead('%3*', 1)
         endif
         let l:statusline .= '%='
@@ -66,8 +65,8 @@ function! MellowStatusline(is_active) abort
                 let l:statusline .= mellow_statusline#Part(l:Text, l:Color, l:lpad, l:rpad)
             endfor
         endif
-        if s:ale_enabled
-            let l:statusline .= mellow_statusline#ALE('%1*', 1)
+        if s:diagnostics_enabled
+            let l:statusline .= mellow_statusline#Diagnostics('%1*', 1)
         endif
         let l:statusline .= mellow_statusline#WhitespaceCheck('%1*', 1)
         " File type (and encoding if not utf-8).

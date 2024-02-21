@@ -82,25 +82,32 @@ function! mellow_statusline#GitHead(color, lpad) abort
 endfunction
 
 
-function! mellow_statusline#ALE(color, lpad) abort
+function! mellow_statusline#Diagnostics(color, lpad) abort
     " Linter status, see <https://github.com/dense-analysis/ale#faq-statusline>.
+    " Prefers ALE over builtin `vim.diagnostic.get()` for neovim.
     let l:ale_msg = ''
+    let l:num_errors = 0
+    let l:num_warnings = 0
     if exists('g:ale_enabled') && g:ale_enabled
         if !exists('b:ale_enabled') || b:ale_enabled
             let l:bufnr = bufnr('%')
             if ale#engine#IsCheckingBuffer(l:bufnr)
-                let l:ale_msg = '...'
+                return mellow_statusline#Part('...', a:color, a:lpad)
             else
                 let l:counts = ale#statusline#Count(l:bufnr)
                 let l:num_errors = l:counts.error + l:counts.style_error
                 let l:num_warnings = l:counts.total - l:num_errors
-                if l:num_errors == 0 && l:num_warnings == 0
-                    let l:ale_msg = ''
-                else
-                    let l:ale_msg = printf('%dW %dE', num_warnings, num_errors)
-                endif
             endif
         endif
+    elseif has('nvim-0.8.0')
+        let l:num_errors = luaeval('#vim.diagnostic.get(0, {severity = vim.diagnostic.severity.ERROR})')
+        let l:num_warnings = luaeval('#vim.diagnostic.get(0, {severity = vim.diagnostic.severity.WARN})')
+    endif
+
+    if l:num_errors == 0 && l:num_warnings == 0
+        let l:ale_msg = ''
+    else
+        let l:ale_msg = printf('%dW %dE', num_warnings, num_errors)
     endif
     return mellow_statusline#Part(l:ale_msg, a:color, a:lpad)
 endfunction

@@ -5,6 +5,18 @@ All notable changes to this project (after v1.0.0) will be documented in this fi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] : 2024-02-22
+
+### Added
+- NeoVim builtin diagnostics API support, so that ALE can be replaced by e.g.
+  nvim-lspconfig on NeoVim to provide the same diagnostics.
+
+### Changed
+- user options, which now do not support individual toggles for Fugitive or
+  gitsigns; a simpler set of options now toggles high-level functionality such
+  as "git integration" or "diagnostics integration" instead of individual
+  plugin integrations
+
 ## [1.3.0] : 2023-04-08
 
 ### Added
