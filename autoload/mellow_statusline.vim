@@ -124,10 +124,6 @@ function! mellow_statusline#WhitespaceCheck(color, lpad) abort
             if search('\s\+$', 'nw') > 0
                 let l:warning = strlen(l:warning) ? l:warning . ',trails' : 'trails'
             endif
-
-            if &linebreak
-                let l:warning = strlen(l:warning) ? l:warning . ',linebreak' : 'linebreak'
-            endif
         endif
         let b:mellow_whitespace_warning = l:warning
     endif
