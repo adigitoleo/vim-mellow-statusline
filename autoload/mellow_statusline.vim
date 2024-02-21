@@ -16,11 +16,7 @@ function! mellow_statusline#Part(text, color, ...) abort
     endif
 
     if strlen(l:text_raw)
-        if has('nvim')
-            let l:text = l:pad_left . l:text_raw . l:pad_right
-        else
-            let l:text = l:pad_left . l:text_raw . l:pad_right
-        endif
+        let l:text = l:pad_left . l:text_raw . l:pad_right
     else
         return ''
     endif
@@ -32,11 +28,7 @@ function! mellow_statusline#Part(text, color, ...) abort
     else
         throw 'mellow: wrong argument type for a:color'
     endif
-    if has('nvim')
-        return strlen(l:color) ? l:color . l:text . '%*' : l:text
-    else
-        return strlen(l:color) ? l:color . l:text . '%*' : l:text
-    endif
+    return strlen(l:color) ? l:color . l:text . '%*' : l:text
 endfunction
 
 
@@ -49,11 +41,7 @@ endfunction
 function! mellow_statusline#File(color, lpad) abort
     let l:file = &buftype !=# '' ? expand('%:t') : pathshorten(expand('%:~:.'))
     if get(g:, 'mellow_show_bufnr', 1)
-        if has('nvim')
-            let l:file = bufnr() . ':' . l:file
-        else
-            let l:file = bufnr('%') . ':' . l:file
-        endif
+        let l:file = bufnr('%') . ':' . l:file
     endif
     return mellow_statusline#Part(l:file, a:color, a:lpad)
 endfunction
@@ -99,11 +87,7 @@ function! mellow_statusline#ALE(color, lpad) abort
     let l:ale_msg = ''
     if exists('g:ale_enabled') && g:ale_enabled
         if !exists('b:ale_enabled') || b:ale_enabled
-            if has('nvim')
-                let l:bufnr = bufnr()
-            else
-                let l:bufnr = bufnr('%')
-            endif
+            let l:bufnr = bufnr('%')
             if ale#engine#IsCheckingBuffer(l:bufnr)
                 let l:ale_msg = '...'
             else
@@ -138,11 +122,11 @@ function! mellow_statusline#WhitespaceCheck(color, lpad) abort
             endif
 
             if search('\s\+$', 'nw') > 0
-                if has('nvim')
-                    let l:warning = strlen(l:warning) ? l:warning . ',trails' : 'trails'
-                else
-                    let l:warning = strlen(l:warning) ? l:warning . ',trails' : 'trails'
-                endif
+                let l:warning = strlen(l:warning) ? l:warning . ',trails' : 'trails'
+            endif
+
+            if &linebreak
+                let l:warning = strlen(l:warning) ? l:warning . ',linebreak' : 'linebreak'
             endif
         endif
         let b:mellow_whitespace_warning = l:warning
