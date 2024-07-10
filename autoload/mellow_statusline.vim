@@ -2,6 +2,7 @@
 " <https://github.com/adigitoleo/vim-mellow-statusline>
 
 function! mellow_statusline#Part(text, color, ...) abort
+    " Optional args specify the amount of padding.
     let l:t_func = exists('v:t_func') ? v:t_func : type(function('type'))
     let l:t_string = exists('v:t_string') ? v:t_string : type('')
     let l:pad_left = repeat(' ', get(a:, 1, 0))
@@ -82,10 +83,21 @@ function! mellow_statusline#GitHead(color, lpad) abort
 endfunction
 
 
+function! mellow_statusline#WordCount(color, lpad) abort
+    " Word count (total and in selected region) using :h wordcount().
+    if exists('*wordcount')
+        let l:counts = wordcount()
+        let l:msg = 'words: ' . counts.words . ' (' . counts.visual_words . ')'
+        return mellow_statusline#Part(l:msg, a:color, a:lpad)
+    endif
+    return ''
+endfunction
+
+
 function! mellow_statusline#Diagnostics(color, lpad) abort
     " Linter status, see <https://github.com/dense-analysis/ale#faq-statusline>.
     " Prefers ALE over builtin `vim.diagnostic.get()` for neovim.
-    let l:ale_msg = ''
+    let l:msg = ''
     let l:num_errors = 0
     let l:num_warnings = 0
     if exists('g:ale_enabled') && g:ale_enabled
@@ -105,11 +117,11 @@ function! mellow_statusline#Diagnostics(color, lpad) abort
     endif
 
     if l:num_errors == 0 && l:num_warnings == 0
-        let l:ale_msg = ''
+        let l:msg = ''
     else
-        let l:ale_msg = printf('%dW %dE', num_warnings, num_errors)
+        let l:msg = printf('%dW %dE', num_warnings, num_errors)
     endif
-    return mellow_statusline#Part(l:ale_msg, a:color, a:lpad)
+    return mellow_statusline#Part(l:msg, a:color, a:lpad)
 endfunction
 
 

@@ -92,6 +92,17 @@ CONFIGURATION					*mellow-statusline-config*
 The following configuration options are supported for the Mellow statusline.
 
 ------------------------------------------------------------------------------
+						*g:mellow_wordcount_enabled*
+
+Toggle word counts for the active statusline. If enabled, the number of words
+in the current buffer and in the current visual selection are queried using
+the built-in |wordcount| function, if it exists. These are displayed on the
+right side of the statusbar, before any diagnostics.
+
+Enable: [default]
+Disable: `let g:mellow_wordcount_enabled= 0`
+
+------------------------------------------------------------------------------
 						*g:mellow_diagnostics_enabled*
 
 Toggle third-party diagnostics for the active statusline. If enabled, the
