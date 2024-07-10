@@ -87,7 +87,9 @@ function! mellow_statusline#WordCount(color, lpad) abort
     " Word count (total and in selected region) using :h wordcount().
     if exists('*wordcount')
         let l:counts = wordcount()
-        if has_key(counts, 'visual_words')
+        if counts.words < 1
+            return ''
+        elseif has_key(counts, 'visual_words')
             let l:msg = 'words:' . counts.words . '(' . counts.visual_words . ')'
         else
             let l:msg = 'words:' . counts.words
