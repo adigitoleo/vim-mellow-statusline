@@ -16,6 +16,7 @@ CONTENTS					*mellow-statusline-contents*
 	4. Configuration ...................... |mellow-statusline-config|
 	5. Customization ...................... |mellow-statusline-custom|
 	6. Integration ........................ |mellow-statusline-integration|
+	7. Bugs ............................... |mellow-statusline-bugs|
 
 
 ==============================================================================
@@ -216,5 +217,16 @@ The Mellow statusline can make use of the following plugins by default:
 Further integration can be set up using custom diagnostic components added to
 |g:mellow_custom_parts|.
 
+
+==============================================================================
+BUGS						*mellow-statusline-bugs*
+
+Bug fixes and feature requests are welcome at the github issue tracker: >
+
+	https://github.com/adigitoleo/vim-mellow-statusline/issues
+
+Alternatively, patches can be sent to my public inbox: >
+
+	https://lists.sr.ht/~adigitoleo/public-inbox
 
 vim:tw=78:ts=8:noet:ft=help:norl:
