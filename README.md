@@ -3,9 +3,6 @@
 
 ### A simple ASCII statusline for (neo)vim
 
-`Plug 'adigitoleo/vim-mellow-statusline', { 'tag': '*' }`
-
-
 ## Screenshots
 
 Taken on alacritty with LiberationMono font, using the [mellow] colorscheme:
@@ -29,8 +26,10 @@ Taken on alacritty with LiberationMono font, using the [mellow] colorscheme:
 ## Features
 
 - Shortened buffer path with optional buffer number
-- Fully configurable colors and mode indicators
+- Fully configurable mode indicators (and their colors)
 - Simple diagnostics included: mixed-indentation and trailing whitespace warnings
+- Buffer and visual selection word counts for text and markdown files (or a
+  custom list of filetypes)
 - Integration with [ALE] or builtin NeoVim 0.8+ diagnostics API to display linter/LSP diagnostics
 - Integration with [vim-fugitive] or [gitsigns.nvim] to display git HEAD name
 - Integration with [gitsigns.nvim] to display git file status (NeoVim only)
@@ -41,12 +40,9 @@ Taken on alacritty with LiberationMono font, using the [mellow] colorscheme:
 
 ## Installation
 
-If you use a vim plugin manager, consult the relevant documentation.
-Here are some links to popular plugin managers:
-- [Pathogen]
-- [NeoBundle]
-- [Vundle]
-- [vim-plug]
+Vim and NeoVim plugins are commonly installed using a plugin manager.
+Many such exist in the wild. Modern (Neo)Vim versions also ship with a built-in
+package loading functionality (read `:help packages` for details).
 
 **After installing the plugin, please read `:help mellow-statusline` for information on usage and available options.**
 
@@ -63,14 +59,6 @@ but it will require some setup unless the recommended [mellow] colorscheme is us
 
 
 [NOTE]: # ( ------------ PUT ALL EXTERNAL LINKS BELOW THIS LINE ------------ )
-
-[Pathogen]: https://github.com/tpope/vim-pathogen
-
-[NeoBundle]: https://github.com/Shougo/neobundle.vim
-
-[Vundle]: https://github.com/gmarik/vundle
-
-[vim-plug]: https://github.com/junegunn/vim-plug
 
 [mellow]: https://github.com/adigitoleo/vim-mellow
 
