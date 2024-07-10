@@ -26,8 +26,8 @@ endif
 let s:git_enabled = get(g:, 'mellow_git_enabled', v:true)
 let s:diagnostics_enabled = get(g:, 'mellow_diagnostics_enabled', v:true)
 let s:wordcount_enabled = get(g:, 'mellow_wordcount_enabled', [
-    'text', 'markdown'
-])
+            \ 'text', 'markdown'
+            \])
 let s:tabline_enabled = get(g:, 'mellow_tabline', v:true)
 let s:mode_map = {
             \  'n':         ['%5*', s:normal ],
