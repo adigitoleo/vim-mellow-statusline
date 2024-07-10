@@ -25,7 +25,9 @@ endif
 
 let s:git_enabled = get(g:, 'mellow_git_enabled', v:true)
 let s:diagnostics_enabled = get(g:, 'mellow_diagnostics_enabled', v:true)
-let s:wordcount_enabled = get(g:, 'mellow_wordcount_enabled', v:true)
+let s:wordcount_enabled = get(g:, 'mellow_wordcount_enabled', [
+    'text', 'markdown'
+])
 let s:tabline_enabled = get(g:, 'mellow_tabline', v:true)
 let s:mode_map = {
             \  'n':         ['%5*', s:normal ],
@@ -66,7 +68,7 @@ function! MellowStatusline(is_active) abort
                 let l:statusline .= mellow_statusline#Part(l:Text, l:Color, l:lpad, l:rpad)
             endfor
         endif
-        if s:wordcount_enabled
+        if indexof(s:wordcount_enabled, 'v:val == &ft') > -1
             let l:statusline .= mellow_statusline#WordCount('', 1)
         endif
         if s:diagnostics_enabled

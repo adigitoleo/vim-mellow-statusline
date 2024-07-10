@@ -94,13 +94,12 @@ The following configuration options are supported for the Mellow statusline.
 ------------------------------------------------------------------------------
 						*g:mellow_wordcount_enabled*
 
-Toggle word counts for the active statusline. If enabled, the number of words
-in the current buffer and in the current visual selection are queried using
-the built-in |wordcount| function, if it exists. These are displayed on the
-right side of the statusbar, before any diagnostics.
+Toggle word counts for the active statusline based on |filetype|. If enabled,
+the number of words in the current buffer and in the current visual selection
+are queried using the built-in |wordcount| function, if it exists. These are
+displayed on the right side of the statusbar, before any diagnostics.
 
-Enable: [default]
-Disable: `let g:mellow_wordcount_enabled= 0`
+Default: `let g:mellow_wordcount_enabled = ['text', 'markdown']`
 
 ------------------------------------------------------------------------------
 						*g:mellow_diagnostics_enabled*
@@ -111,7 +110,7 @@ from the NeoVim 0.8+ builtin |diagnostic-api|, in that order of priority.
 These are displayed on the right side of the statusbar.
 
 Enable: [default]
-Disable: `let g:mellow_diagnostics_enabled= 0`
+Disable: `let g:mellow_diagnostics_enabled = 0`
 
 ------------------------------------------------------------------------------
 						*g:mellow_git_enabled*
